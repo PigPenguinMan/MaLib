@@ -1,20 +1,26 @@
+
 import NavBar from "./components/navbar/navbar";
+import ArchiveMain from "./pages/archive/page";
 
 const Main = () => {
-  return ( 
+  return (
     <body>
+      <div className="wrap">
+        <div className="header sticky">
+          <NavBar />
+        </div>
+        <div className="content">
 
-    <header>
-      <NavBar/>
-    </header>
-      <section></section>
-      <section></section>
-    <footer>
+        <section>
+          <ArchiveMain/>
+        </section>
+        </div>
+        <div className="footer">
 
-    </footer>
-
+        </div>
+      </div>
     </body>
-   );
-}
- 
+  );
+};
+
 export default Main;
