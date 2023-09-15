@@ -1,21 +1,18 @@
 "use client";
 
+import BookFilter from "@/app/utils/bookfilter";
 import { useEffect, useState } from "react";
-
 const ArchiveList = () => {
   const apiKey = "1efb2da70d936bb190d6a62d1097f47a";
   const [data, setData] = useState();
   const apiCall = async () => {
     try {
       const response = await fetch(`/api/book`, {
-        method: "GET",
-        headers:{
-          'Access-Control-Allow-origin' : '*'
-        }
+        method: "GET"
       });
       if (!response.ok) throw new Error(`error:${response.statusText}`);
-      const data = await response.json(); 
-      console.log(data);
+      const bookData = await response.json(); 
+      setData(bookData)
     } catch (err) {
       console.error(err);
     }
@@ -25,7 +22,16 @@ const ArchiveList = () => {
     apiCall();
   }, []);
 
-  return <div>{data ? <div>데이터들어옴</div> : <div> 안들어옴</div>}</div>;
+  return <div className="ArchiveListWrap w-full px-28 flex flex-col grow border-2 border-black ">
+    {data ? 
+  <>
+      {/* 장르별 필터  */}
+      <BookFilter/>
+      {/* 책하나에 해당하는 컴포넌트  */}
+  </>
+
+  :
+   <div>데이터 불러오기 실패</div> }</div>;
 };
 
 export default ArchiveList;

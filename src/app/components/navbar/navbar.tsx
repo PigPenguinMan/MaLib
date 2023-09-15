@@ -1,3 +1,4 @@
+import SearchBar from "./searchbar";
 
 
 const NavBar = () => {
@@ -30,7 +31,8 @@ const NavBar = () => {
       </nav>
       <div className="flex flex-row basis-2/3 justify-end">
         {/* 검색창 */}
-        <div className="searchbar px-28 mx-6 border-2"> 검색창 </div>
+        
+        <div className="searchbar px-22 mx-6 "> <SearchBar/> </div>
         {/* 로그인 회원가입 | 로그아웃 버튼 컴포넌트화시키기 */}
         <ul className="flex flex-row mx-6 ">
           <li className="login mx-2 border-2">로그인</li>
