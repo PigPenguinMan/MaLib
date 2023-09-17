@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(res: Response, req: Request) {
   const apiKey = "1efb2da70d936bb190d6a62d1097f47a";
-  const viewItemCnt = 100
+  const viewItemCnt = 6
     try {
       const response = await fetch(
         `https://www.kmas.or.kr/openapi/search/rgDtaMasterList?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=1`,{

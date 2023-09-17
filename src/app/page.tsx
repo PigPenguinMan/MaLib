@@ -5,13 +5,10 @@ import ArchiveMain from "./pages/archive/page";
 const Main = () => {
   return (
     <body>
-      <div className="wrap">
-        <div className="header sticky">
-          <NavBar />
-        </div>
+      <div className="wrap relative flex flex-col grow m-auto ">
+      
         <div className="content">
-
-        <section>
+        <section className="">
           <ArchiveMain/>
         </section>
         </div>
