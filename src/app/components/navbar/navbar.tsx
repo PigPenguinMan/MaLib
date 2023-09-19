@@ -1,10 +1,11 @@
+'use client'
 import SearchBar from "./searchbar";
 
 
 const NavBar = () => {
   return (
     // 작업완료후 class border-2 삭제
-    <div className="flex flex-row items-center justify-between h-16 p-6 border-2 ">
+    <div className="flex flex-row items-center justify-between h-16 p-6 border-2">
       <h1 className="border-2">
         <a href="">로고</a>
       </h1>
