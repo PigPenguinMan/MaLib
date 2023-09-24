@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import SearchBar from "./searchbar";
-
+import Link from "next/link";
 
 const NavBar = () => {
   return (
@@ -14,30 +14,32 @@ const NavBar = () => {
       <nav>
         <ul className="flex flex-row border-2">
           <li>
-            <a className="py-3 px-6" href="">
-              아카이브
-            </a>
+            <Link href="/archive" className="px-2">아카이브</Link>
           </li>
           <li>
-            <a className="py-3 px-6" href="">
-              게시판
-            </a>
+            <Link href="/board" className="px-2">게시판</Link>
           </li>
           <li>
-            <a className="py-3 px-6" href="">
-              만화 성향찾기
-            </a>
+            <Link href="archive" className="px-2">성향 만화찾기</Link>
           </li>
         </ul>
       </nav>
       <div className="flex flex-row basis-2/3 justify-end">
         {/* 검색창 */}
-        
-        <div className="searchbar px-22 mx-6 "> <SearchBar/> </div>
+
+        <div className="searchbar px-22 mx-6 ">
+          {" "}
+          <SearchBar />{" "}
+        </div>
         {/* 로그인 회원가입 | 로그아웃 버튼 컴포넌트화시키기 */}
         <ul className="flex flex-row mx-6 ">
-          <li className="login mx-2 border-2">로그인</li>
-          <li className="signup mx-2 border-2">회원가입</li>
+          <li className="login mx-2 border-2">
+            <Link href="/login">로그인</Link>
+          </li>
+          <li className="signup mx-2 border-2">
+          <Link href="/signin">회원가입</Link>
+
+          </li>
         </ul>
       </div>
     </div>

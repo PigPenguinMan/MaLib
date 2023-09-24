@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
+// pageNo  받아와 쓰기
+let pageNo = 1 ;
 async function fetchData( ) {
   const apiKey = "1efb2da70d936bb190d6a62d1097f47a";
   const viewItemCnt = 100;
   try {
     const response = await fetch(
-      `https://www.kmas.or.kr/openapi/search/rgDtaMasterList?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&pageNo=${pageNo}`,
+      `https://www.kmas.or.kr/openapi/search/rgDtaMasterList?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&&pageNo=${pageNo}`,
       {}
     );
     if (!response.ok) {
@@ -12,23 +14,23 @@ async function fetchData( ) {
     }
     const data = await response.json();
     console.log("패치성공");
+    pageNo += 100 ;
     return data;
   } catch (err) {
     console.error(err, "패치에러");
   }
 }
-
+ // const { searchParams } = new URL(requset.url)
+    // console.log(requset.url);
+    // const pageNo = searchParams.get('query')
 
 export async function GET(requset: Request) {
   try {
     const data = await fetchData();
-    // const { searchParams } = new URL(requset.url)
-    // console.log(requset.url);
-    // const pageNo = searchParams.get('query')
+    await new Promise((resolve)=>setTimeout(resolve,100))
     return (
-      NextResponse.json({ message: "GET METHOD", success: true }),
-      NextResponse.json(data)
-    );
+      NextResponse.json({ message: "GET METHOD", success: true ,data }))
+
   } catch (err) {
     return NextResponse.json({ message: err, success: false });
   }

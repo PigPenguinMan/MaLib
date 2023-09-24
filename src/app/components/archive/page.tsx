@@ -3,68 +3,85 @@
 import BookFilter from "@/app/utils/bookfilter";
 import Content from "@/app/utils/content";
 import Loading from "@/app/utils/loading";
-import { BookData, Item } from "@/types/types";
+
+import { IBookData, IItem } from "@/types/types";
 import { Suspense, useEffect, useState } from "react";
+import debounce from "lodash/debounce";
+
 const Archive = () => {
-  const [contentData, setContentData] = useState<Item[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isFetch,setIsFetch] = useState(false)
-  let dataPageNo = 1 ;
+  const [contentData, setContentData] = useState<IItem[]>([]);
+  const [moreData, setMoreData] = useState<IItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [fetching, setFetching] = useState<boolean>(false);
+
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await fetch(`/api/book`, {
-        method: "GET"
+        method: "GET",
       });
       if (!response.ok) throw new Error(`error:${response.statusText}`);
-      const bookData = (await response.json()) as BookData;
+      const bookData = await response.json();
+      // 09/20
+      // 데이터 들어왔을대 필터해서 set시키기
       await new Promise((resolve) => setTimeout(resolve, 3000));
-      setContentData(bookData.itemList as Item[]);
+      const filterData = (bookData.data.itemList as IItem[]).filter((item,index,self)=>{
+        return self.findIndex((t)=> t.prdctNm === item.prdctNm) === index
+      })
+      setContentData(filterData);
       setLoading(false);
-      dataPageNo++
     } catch (err) {
-      console.error(err,'fetchData');
+      console.error(err, "fetchData");
     }
   };
-  const fetchNextData = async ()=>{
+  const fetchNextData = async () => {
+    setFetching(true);
     try {
-      const response = await fetch(`/api/book?pageNo?query=${dataPageNo}`,{
-        method:"GET"
+      const response = await fetch(`/api/book`, {
+        method: "GET",
+      });
+      if (!response.ok)
+        throw new Error(`Error 'fetchNextData'  ${response.statusText}`);
+      const bookData = await response.json();
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const filterData  = (bookData.data.itemList as IItem[]).filter((item,index,self)=>{
+        return self.findIndex((t) => t.prdctNm === item.prdctNm) === index
       })
-      if(!response.ok) throw new Error(`Error 'fetchNextData'  ${response.statusText}`)
-      const bookData = (await response.json()) as BookData
-      setContentData(prevData => [...prevData, ...bookData.itemList ])
-      setIsFetch(true)
-    } catch(err){
-      console.log(err,'fetchNextData');
+      setMoreData(filterData);
+      setContentData(prevData => [...prevData ,...filterData])
+      console.log("다음데이터 패치");
+
+    } catch (err) {
+      console.log(err, "fetchNextData");
     }
-  }
-  const handleScroll = ()=>{
-    const scrollY = window.scrollY ; 
-    const windowHeight = window.innerHeight ; 
-    const contentHeight = document.documentElement.scrollHeight;
-    if (scrollY + windowHeight >= contentHeight - 200){
-      fetchNextData()
+    setFetching(false);
+  };
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight && fetching === false) {
+      debounce(() => {
+        fetchNextData();
+      }, 500)();
     }
-  }
+  };
   // api로 불러온 데이터중 같은 이름끼리 안나오게 필터
   const filteredData = contentData.filter((item, index, self) => {
     return self.findIndex((t) => t.prdctNm === item.prdctNm) === index;
   });
 
-
-  console.log(filteredData);
-
   //   09/12 api를 불러올때 CORS 문제 발생 ---- 09/14해결
   useEffect(() => {
     fetchData();
   }, []);
-  useEffect(()=>{
-    window.addEventListener('scroll',handleScroll);
-    return()=>{
-      window.removeEventListener('scroll',handleScroll)
-      setIsFetch(false)
-    }
-  },[])
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <div className="ArchiveWrap w-full px-28 flex flex-col grow  ">
       {/* 장르별 필터  */}
@@ -74,21 +91,15 @@ const Archive = () => {
       <div className="ContentListWrap grid grid-cols-6 gap-2 justify-items-center">
         {loading ? (
           <p>Loading</p>
-        ) : filteredData.length > 0 ? (
-          filteredData.map((itemList, index) => (
-            // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제
+        ) : contentData.length > 0 ? (
+          contentData.map((itemList) => (
+            // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 -- 
             <Content
-              key={index}
-              mastrId={itemList.mastrId}
-              title={itemList.title}
-              listSeCd={itemList.listSeCd}
-              mainGenreCd={itemList.mainGenreCd}
-              mainGenreCdNm={itemList.mainGenreCdNm}
-              imageDownloadUrl={itemList.imageDownloadUrl}
-              pictrWritrNm={itemList.pictrWritrNm}
-              sntncWritrNm={itemList.sntncWritrNm}
-              orginlNationCd={itemList.orginlNationCd}
-              orginlNationCdNm={itemList.orginlNationCdNm}
+              key={parseInt(itemList.mastrId)}
+              // 객체의 모드속성을 전개연산자{...}를 사용해 prop내려주기 
+              {...itemList}
+              
+            
             />
           ))
         ) : (

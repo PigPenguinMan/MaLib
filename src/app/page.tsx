@@ -1,6 +1,6 @@
 
 import NavBar from "./components/navbar/navbar";
-import ArchiveMain from "./pages/archive/page";
+import ArchiveMain from "./archive/page";
 
 const Main = () => {
   return (
