@@ -16,7 +16,7 @@ const Content = (props: IItem) => {
     <div className="w-full min-h-[300px] innerContent">
       <Link
         href={{
-          pathname: `/archive/${props.mastrId}`,
+          pathname: `/archive/${props.isbn}`,
           query: queryString,
         }}
       >

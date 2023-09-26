@@ -13,11 +13,11 @@ export interface BookProps {
 
 export interface IResult {
   listSeCd: string;
-  pageNo: Number;
+  pageNo: number;
   resultMessage: string;
   resultState: string;
-  totalcount: Number;
-  viewItemCnt: Number;
+  totalcount: number;
+  viewItemCnt: number;
 }
 export interface IItem {
   mastrId: string;
@@ -41,12 +41,12 @@ export interface IItem {
   isbn: string;
   issn: string | null;
   setIsbn: string | null;
-  pltfomCd: Number;
+  pltfomCd: number;
   pltfomCdNm: string;
   pltfomCmpnyIdNm: string;
-  ageGradCd: Number;
+  ageGradCd: number;
   ageGradCdNm: string;
-  pusryBeginDe: Number;
+  pusryBeginDe: number;
   pusryEndDe: string | null;
   fnshYn: string;
   pblcateYn: string;
@@ -79,4 +79,34 @@ export interface IItem {
 export interface IBookData {
   result: IResult;
   itemList: IItem[];
+}
+
+export interface ISearchResult  {
+  pageNo: number;
+  resultMessage: string;
+  resultState: string;
+  totalcount: number;
+  viewItemCnt: number;
+}
+
+export interface ISearchItem {
+  prdctNm: string;
+  title: string;
+  subtitl: string | null;
+  edtn: string | null;
+  pictrWritrNm: string;
+  sntncWritrNm: string;
+  orginlTitle: string | null ;
+  mainGenreCdNm: string;
+  outline: string;
+  isbn: string;
+  setIsbn: string | null;
+  plscmpnIdNm: string | null;
+  pltfomCdNm: string;
+  ageGradCdNm: string;
+  imageDownloadUrl: string;
+}
+export interface ISearchData {
+  result : ISearchResult
+  itemList : ISearchItem
 }
