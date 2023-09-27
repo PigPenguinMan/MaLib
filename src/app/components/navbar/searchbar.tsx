@@ -1,6 +1,7 @@
 "use client";
 
 import { ISearchItem } from "@/types/types";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 // 네브바에 사용할 검색창
@@ -9,24 +10,28 @@ import React, { useState } from "react";
 const SearchBar = () => {
   const [ftValue, setFtValue] = useState("title");
   const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
 
   //  event타입 지정
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`/api/search?${ftValue}=${searchValue}`, {
-        method: "GET",
-      });
-      if (!response.ok)
-        throw new Error(`searchFetchErr:${response.statusText}`);
-      const searchData = await response.json();
-      const filterdData = (searchData.data.itemList as ISearchItem[]).filter((item,index,self) => {
-          return self.findIndex((t) => t.prdctNm === item.prdctNm) === index
-      })
-      console.log(filterdData as ISearchItem[]);
-    } catch (err) {
-      console.error(err, "fetchErr");
-    }
+    router.push(`/search?${ftValue}=${searchValue}`)
+    // try {
+    //   const response = await fetch(`/api/search?${ftValue}=${searchValue}`, {
+    //     method: "GET",
+    //   });
+    //   if (!response.ok)
+    //     throw new Error(`searchFetchErr:${response.statusText}`);
+    //   const searchData = await response.json();
+    //   const filterdData = (searchData.data.itemList as ISearchItem[]).filter(
+    //     (item, index, self) => {
+    //       return self.findIndex((t) => t.prdctNm === item.prdctNm) === index;
+    //     }
+    //   );
+    // //   console.log(filterdData as ISearchItem[]);
+    // } catch (err) {
+    //   console.error(err, "fetchErr");
+    // }
   };
   return (
     // 필터 클릭시 드롭바 형태로 나오게 함

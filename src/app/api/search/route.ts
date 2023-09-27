@@ -27,19 +27,13 @@ export async function GET(requset: Request) {
     const { searchParams } = new URL(requset.url);
     let ftValue;
     let searchValue;
-    if (searchParams) {
-      if (searchParams.has("title")) {
-        ftValue = "title";
-        searchValue = searchParams.get(ftValue);
-      } else if (searchParams.has("artist")) {
-        ftValue = "artist";
-        searchValue = searchParams.get(ftValue);
-      }
-    }
+    searchParams.forEach(
+      (value, key) => ((searchValue = value), (ftValue = key))
+    );
+    // default말고 다른방법으로 해결방법찾기
     ftValue = ftValue || "default";
-    console.log(ftValue, "ft");
     searchValue = searchValue || "default";
-    console.log(searchValue, "sear");
+
     const data = await fetchSearch(ftValue, searchValue);
     return NextResponse.json({ message: "GET METHOD", success: true, data });
   } catch (err) {

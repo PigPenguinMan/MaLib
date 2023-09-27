@@ -1,12 +1,13 @@
 "use client";
 
 import BookFilter from "@/app/utils/bookfilter";
-import Content from "@/app/utils/content";
+
 import Loading from "@/app/utils/loading";
 
 import { IBookData, IItem } from "@/types/types";
 import { Suspense, useEffect, useState } from "react";
 import debounce from "lodash/debounce";
+import { ArchiveContent } from "@/app/utils/content";
 
 const Archive = () => {
   const [contentData, setContentData] = useState<IItem[]>([]);
@@ -93,13 +94,11 @@ const Archive = () => {
           <p>Loading</p>
         ) : contentData.length > 0 ? (
           contentData.map((itemList) => (
-            // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 -- 
-            <Content
-              key={parseInt(itemList.mastrId)}
-              // 객체의 모드속성을 전개연산자{...}를 사용해 prop내려주기 
+            // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 --
+            <ArchiveContent
+              key={parseInt(itemList.isbn)}
+              // 객체의 모드속성을 전개연산자{...}를 사용해 prop내려주기
               {...itemList}
-              
-            
             />
           ))
         ) : (

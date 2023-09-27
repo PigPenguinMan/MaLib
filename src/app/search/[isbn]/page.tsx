@@ -1,6 +1,8 @@
 // 검색결과 페이지 
 
-const SearchReusltPage = ({params}:{params : {isbn :string}}) => {
+import { ISearchItem } from "@/types/types";
+
+const ReusltContentPage = ({params} : {params : ISearchItem}) => {
     return ( 
         <div>
             검색결과 페이지 : {params.isbn}
@@ -8,4 +10,4 @@ const SearchReusltPage = ({params}:{params : {isbn :string}}) => {
      );
 }
  
-export default SearchReusltPage;
+export default ReusltContentPage;
