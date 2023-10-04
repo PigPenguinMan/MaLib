@@ -1,11 +1,11 @@
-import { IItem, ISearchItem } from "@/types/types";
+import { IArchiveContentProps, IItem, ISearchItem } from "@/types/types";
 import Link from "next/link";
 
-export function ArchiveContent(props: IItem) {
+export function ArchiveContent(itemList : IItem) {
   // url로 데이터 전달하기 위한 queryString
   const params = new URLSearchParams();
-  for (const key of Object.keys(props) as (keyof IItem)[]) {
-    const value = props[key];
+  for (const key of Object.keys(itemList) as (keyof IItem)[]) {
+    const value = itemList[key];
     if (typeof value === "string") {
       params.append(key, value);
     }
@@ -16,15 +16,15 @@ export function ArchiveContent(props: IItem) {
     <div className="innerContent w-full min-h-[300px]">
       <Link
         href={{
-          pathname: `/archive/${props.isbn}`,
+          pathname: `/archive/${itemList.isbn}`,
           query: queryString,
         }}
       >
         <div className="relative  w-full h-full  rounded-lg  ">
           <img
             className="absolute w-full h-full top-0 left-0 object-cover select-none"
-            src={`${props.imageDownloadUrl}`}
-            alt={`${props.title}`}
+            src={`${itemList.imageDownloadUrl}`}
+            alt={`${itemList.title}`}
           />
         </div>
       </Link>
@@ -34,10 +34,10 @@ export function ArchiveContent(props: IItem) {
 
 // 리턴부분의 pathName만 다른데 저부분만 수정하면 함수1개로 가능? 할거같음
 
-export function ResultContent(props: ISearchItem) {
+export function ResultContent(itemList: ISearchItem) {
   const params = new URLSearchParams();
-  for (const key of Object.keys(props) as (keyof ISearchItem)[]) {
-    const value = props[key];
+  for (const key of Object.keys(itemList) as (keyof ISearchItem)[]) {
+    const value = itemList[key];
     if (typeof value === "string") {
       params.append(key, value);
     }
@@ -48,15 +48,15 @@ export function ResultContent(props: ISearchItem) {
     <div className="innerContent w-full min-h-[300px] inner">
       <Link
         href={{
-          pathname: `/search/${props.isbn}`,
+          pathname: `/search/${itemList.isbn}`,
           query: queryString,
         }}
       >
         <div className="relative w-full h-full rounded-lg">
           <img
             className="absolute w-full h-full top-0 left-0 object-cover select-none"
-            src={`${props.imageDownloadUrl}`}
-            alt={`${props.title}`}
+            src={`${itemList.imageDownloadUrl}`}
+            alt={`${itemList.title}`}
           />
         </div>
       </Link>

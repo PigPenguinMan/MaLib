@@ -16,22 +16,6 @@ const SearchBar = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/search?${ftValue}=${searchValue}`)
-    // try {
-    //   const response = await fetch(`/api/search?${ftValue}=${searchValue}`, {
-    //     method: "GET",
-    //   });
-    //   if (!response.ok)
-    //     throw new Error(`searchFetchErr:${response.statusText}`);
-    //   const searchData = await response.json();
-    //   const filterdData = (searchData.data.itemList as ISearchItem[]).filter(
-    //     (item, index, self) => {
-    //       return self.findIndex((t) => t.prdctNm === item.prdctNm) === index;
-    //     }
-    //   );
-    // //   console.log(filterdData as ISearchItem[]);
-    // } catch (err) {
-    //   console.error(err, "fetchErr");
-    // }
   };
   return (
     // 필터 클릭시 드롭바 형태로 나오게 함

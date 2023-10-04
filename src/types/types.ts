@@ -81,7 +81,7 @@ export interface IBookData {
   itemList: IItem[];
 }
 
-export interface ISearchResult  {
+export interface ISearchResult {
   pageNo: number;
   resultMessage: string;
   resultState: string;
@@ -96,7 +96,7 @@ export interface ISearchItem {
   edtn: string | null;
   pictrWritrNm: string;
   sntncWritrNm: string;
-  orginlTitle: string | null ;
+  orginlTitle: string | null;
   mainGenreCdNm: string;
   outline: string;
   isbn: string;
@@ -107,6 +107,21 @@ export interface ISearchItem {
   imageDownloadUrl: string;
 }
 export interface ISearchData {
-  result : ISearchResult
-  itemList : ISearchItem
+  result: ISearchResult;
+  itemList: ISearchItem;
+}
+
+export interface IBookFilterProps {
+  filterState: {
+    bookFilter: string;
+    setBookFilter: React.Dispatch<React.SetStateAction<string>>;
+    selectedBookFilter: string;
+    setSelectedBookFilter: React.Dispatch<React.SetStateAction<string>>;
+  };
+ 
+}
+
+export interface IArchiveContentProps { 
+  itemList : IItem;
+  selectedBookFilter : string
 }
