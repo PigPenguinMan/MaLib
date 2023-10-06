@@ -13,6 +13,11 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      content : {
+        'bookIcon' : 'url(/book.svg)' ,
+        'moreArrowIcon' : 'url(/morearrow.svg)',
+        'lessArrowIcon' : 'url(/lessarrow.svg'
+      }
     },
   },
   plugins: [

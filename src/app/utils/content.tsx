@@ -1,4 +1,4 @@
-import { IArchiveContentProps, IItem, ISearchItem } from "@/types/types";
+import {  IItem, ISearchItem } from "@/types/types";
 import Link from "next/link";
 
 export function ArchiveContent(itemList : IItem) {

@@ -29,13 +29,13 @@ const BookFilter: React.FC<IBookFilterProps> = (props) => {
   }, [selectedBookFilter]);
 
   return (
-    <ul className="archiveCategoryFilterWrap sticky top-16 my-2 flex flex-row overflow-x-scroll overflow-y-hidden items-center scrollbar-hide justify-between">
+    <ul className="archiveFilterWrap sticky top-16 my-2 flex flex-row overflow-x-scroll overflow-y-hidden items-center scrollbar-hide justify-between ">
       {Object.values(categoryList).map((category) => (
         <button
           key={category.mainGenreCd}
           onClick={handleFilterClick}
           value={category.mainGenreCdNm}
-          className="archiveCategoryFilterInner px-2 py-1 mx-1 border rounded-md flex shrink-0  "
+          className="archiveFilterInner flex shrink-0 px-2 py-1 mx-1 border rounded-md  bg-white  "
         >
           {category.mainGenreCdNm}
         </button>

@@ -69,7 +69,10 @@ const Archive = () => {
 
   // 데이터 필터에 따라 표시하는 함수
   const handleFilterChange = () => {
-
+    const changedData = contentData.filter((value)=>(
+      value.mainGenreCdNm == selectedBookFilter
+    ))
+    
   };
 
   const handleScroll = () => {
@@ -94,11 +97,13 @@ const Archive = () => {
     };
   }, []);
 
-  useEffect(() => {}, [selectedBookFilter]);
+  useEffect(() => {
+    handleFilterChange()
+  }, [selectedBookFilter]);
   return (
     <div className="ArchiveWrap w-full px-28 flex flex-col grow  ">
       {/* 장르별 필터  */}
-      <div className="filterWrap sticky top-16 w-full h-full  z-[99] ">
+      <div className="filterWrap sticky top-16 w-full h-full  z-[99] bg-white ">
         <BookFilter
           filterState={{
             bookFilter,
@@ -119,8 +124,14 @@ const Archive = () => {
             itemList이 IItem 형식에 없지만 'IArchiveContentProps' 형식에서 필수입니다.ts(2741) 오류
             */
             <ArchiveContent
-              key={parseInt(itemList.isbn)}
-              // 객체의 모드속성을 전개연산자{...}를 사용해 prop내려주기
+            /**
+            10/05 Encountered two children with the same key, `2023109495`. 
+            Keys should be unique so that components maintain their identity across updates. 
+            Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version
+            오류 발생 고유한 키값이 아닌여서 발생한 문제인거같은데 mastrId는 자료고유Id값인데 왜 생기는건지 모르겠다 
+             */
+              key={itemList.mastrId}
+              // 객체의 모드속성을 전개연산자{...}를 사용해 prop 보내기
               {...itemList}
             />
           ))
