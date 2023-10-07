@@ -16,7 +16,8 @@ const config: Config = {
       content : {
         'bookIcon' : 'url(/book.svg)' ,
         'moreArrowIcon' : 'url(/morearrow.svg)',
-        'lessArrowIcon' : 'url(/lessarrow.svg'
+        'lessArrowIcon' : 'url(/lessarrow.svg)',
+        'heart' : 'url(/heart.svg)'
       }
     },
   },

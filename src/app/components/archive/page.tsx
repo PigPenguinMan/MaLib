@@ -24,7 +24,7 @@ const Archive = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/book`, {
+      const response = await fetch(`/api/archivebook`, {
         method: "GET",
       });
       if (!response.ok) throw new Error(`error:${response.statusText}`);
@@ -46,7 +46,7 @@ const Archive = () => {
   const fetchNextData = async () => {
     setFetching(true);
     try {
-      const response = await fetch(`/api/book`, {
+      const response = await fetch(`/api/archivebook`, {
         method: "GET",
       });
       if (!response.ok)
@@ -130,7 +130,7 @@ const Archive = () => {
             Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version
             오류 발생 고유한 키값이 아닌여서 발생한 문제인거같은데 mastrId는 자료고유Id값인데 왜 생기는건지 모르겠다 
              */
-              key={itemList.mastrId}
+              key={itemList.isbn}
               // 객체의 모드속성을 전개연산자{...}를 사용해 prop 보내기
               {...itemList}
             />
