@@ -1,23 +1,27 @@
 import { NextResponse } from "next/server";
 
-// pageNo  받아와 쓰기
-let pageNo = 1 ;
-async function fetchData( ) {
+
+async function fetchData(pageNo : string |null , pageNo2 :string|null ) {
   const apiKey = process.env.NEXT_PUBLIC_API_KEY
   const apiURL = process.env.NEXT_PUBLIC_API_ARCHIVE_URL
-  const viewItemCnt = 100;
+  const viewItemCnt = 50;
   try {
-    const response = await fetch(
-      `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&&pageNo=${pageNo}`,
-      {}
-    );
-    if (!response.ok) 
-      throw new Error(`http error ,${response.status} `);
-    
-    const data = await response.json();
-    console.log("패치성공");
-    pageNo += 100 ;
-    return data;
+    const [response1,response2] = await Promise.all([
+      fetch(
+        `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&&pageNo=${pageNo}`,{}
+      ),
+      fetch(
+        `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&&pageNo=${pageNo2}`,{}
+      )
+    ])
+    if (!response1.ok) 
+      throw new Error(`http error res1 ,${response1.status} `);
+    if (!response2.ok)
+      throw new Error(`http error res2,${response2.status}`)
+    const [data1,data2] = await Promise.all([response1.json(),response2.json()])
+    console.log("패치성공")
+    const data = [data1,data2]
+    return data
   } catch (err) {
     console.error(err, "패치에러");
   }
@@ -25,8 +29,20 @@ async function fetchData( ) {
 
 export async function GET(requset: Request) {
   try {
-    const data = await fetchData();
-    await new Promise((resolve)=>setTimeout(resolve,100))
+    const { searchParams } = new URL(requset.url)
+    let pageNo ; 
+    let pageNo2 ;    
+    if(searchParams.has('pageNo')){
+      pageNo = searchParams.get('pageNo')
+    } else {
+       pageNo = null
+    }
+    if(searchParams.has('pageNo2')){
+      pageNo2 = searchParams.get('pageNo2')
+    } else {
+      pageNo2 = null
+    }
+    const data = await fetchData(pageNo,pageNo2);
     return (
       NextResponse.json({ message: "GET METHOD", success: true ,data }))
 

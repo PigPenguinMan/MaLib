@@ -1,6 +1,5 @@
 "use client";
 
-import { ISearchItem } from "@/types/types";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -11,7 +10,6 @@ const SearchBar = () => {
   const [ftValue, setFtValue] = useState("title");
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
-
   //  event타입 지정
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,11 +18,11 @@ const SearchBar = () => {
   return (
     // 필터 클릭시 드롭바 형태로 나오게 함
     <form
-      className="searchBarWrap w-full flex flex-row divide-x-2 divide-solid border-2 "
+      className="searchBarWrap w-full flex flex-row"
       onSubmit={handleSubmit}
     >
       <select
-        className="px-1 mx-2 bg-inherit"
+        className="px-1 mx-2 bg-inherit "
         onChange={(e) => setFtValue(e.target.value)}
         name="searchBarFilter"
         id="searchBarFilter"

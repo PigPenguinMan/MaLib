@@ -4,13 +4,16 @@ import { Suspense, useEffect, useState } from "react";
 import BookFilter from "../utils/bookfilter";
 import Loading from "../utils/loading";
 import { useSearchParams } from "next/navigation";
-import { ISearchItem } from "@/types/types";
+import { IBookFilterProps, ISearchItem } from "@/types/types";
 import { ResultContent } from "../utils/content";
 
 const SearchResultPage = () => {
   const [resultData, setResultData] = useState<ISearchItem[]>([]);
+  const [bookFilter, setBookFilter] =
+    useState<IBookFilterProps["filterState"]["bookFilter"]>("");
+  const [selectedBookFilter, setSelectedBookFilter] =
+    useState<IBookFilterProps["filterState"]["selectedBookFilter"]>("");
   const params = useSearchParams();
-
   const searchResultData = async () => {
     try {
       let ftValue;
@@ -37,13 +40,20 @@ const SearchResultPage = () => {
   }, []);
   return (
     <div className="SearchResultWrap w-full px-28 flex flex-col grow">
-      <div className="filterWrap sticky top-16 w-full h-full z-[99]">
-        <BookFilter />
+      <div className="filterWrap sticky top-16 w-full h-full bg-white z-[99]">
+        <BookFilter
+          filterState={{
+            bookFilter,
+            setBookFilter,
+            selectedBookFilter,
+            setSelectedBookFilter,
+          }}
+        />
       </div>
-      <div className="ContentListWrap grid grid-cols-6 gap-2 justify-items-center">
+      <div className="ContentListWrap grid grid-cols-6 gap-x-5  justify-items-center bg-slate-100 mx-2">
         <Suspense fallback={<Loading />}>
           {resultData.map((itemList) => (
-            <ResultContent key={itemList.isbn} {...itemList} />
+            <ResultContent key={parseInt(itemList.isbn)} {...itemList} />
           ))}
         </Suspense>
       </div>

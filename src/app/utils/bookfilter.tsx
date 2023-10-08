@@ -12,7 +12,6 @@ const BookFilter: React.FC<IBookFilterProps> = (props) => {
     setSelectedBookFilter,
   } = props.filterState;
   const categoryList = filterList[0].category;
-
   const handleFilterClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     // 포커스됐을때 색깔 토글
