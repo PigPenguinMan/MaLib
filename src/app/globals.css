@@ -21,3 +21,13 @@ body {
   box-sizing:border-box;
 }
 
+.Link_signin , .Link_findaccount,.Link_findpassword {
+
+  float: left;
+  text-decoration: none;
+}
+
+.Signup_form > input {
+ width: 100% ;
+ height: 2.5rem ; 
+}

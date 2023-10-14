@@ -1,6 +1,7 @@
 import { IItem, ISearchItem } from "@/types/types";
 import Link from "next/link";
 
+// 데이터에 해당하는 작가 글,그림작가가 있을때 있는 작가만 표시
 function dispArtist(pictrWritrNm: string | null, sntncWritrNm: string | null) {
   if (pictrWritrNm && sntncWritrNm) {
     pictrWritrNm === sntncWritrNm;
@@ -23,7 +24,7 @@ export function ArchiveContent(itemList: IItem) {
   const queryString = params.toString();
 
   return (
-    <div className="innerContent w-full min-h-[300px] rounded-md pb-10  ">
+    <div className="innerContent w-full min-h-[300px] rounded-md pb-10 px-2 ">
       <Link
         href={{
           pathname: `/archive/${itemList.isbn}`,
@@ -62,10 +63,10 @@ export function ResultContent(itemList: ISearchItem) {
   const queryString = params.toString();
 
   return (
-    <div className="innerContent w-full min-h-[300px] rounded-md pb-10   ">
+    <div className="innerContent w-full min-h-[300px] rounded-md pb-10 px-2  ">
       <Link
         href={{
-          pathname: `/search/${itemList.isbn}`,
+          pathname: `/archive/${itemList.isbn}`,
           query: queryString,
         }}
       >

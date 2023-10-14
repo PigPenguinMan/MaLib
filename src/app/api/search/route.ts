@@ -7,19 +7,36 @@ async function fetchSearch(ftValue: string, searchValue: string) {
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const apiURL = process.env.NEXT_PUBLIC_API_SEARCH_URL;
   const viewItemCnt = 100;
-  try {
-    const response = await fetch(
-      `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&${ftValue}=${searchValue}`,
-      {}
-    );
-    if (!response.ok) {
-      throw new Error(`http error , ${response.statusText}`);
-    }
-    const data = response.json();
-    return data;
-  } catch (err) {
-    console.error(err, "패치에러");
-  }
+  const commonUrl = `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&`
+   try {
+      if( ftValue === 'artist'){
+        const [response1,response2] = await Promise.all([
+          fetch(`${commonUrl}pictrWritrNm=${searchValue}`,{}),
+          fetch(`${commonUrl}sntncWritrNm=${searchValue}`,{})
+        ])
+        if(!response1.ok)
+        throw new Error (`hhtp error resp1 , ${response1.status}`)
+        if(!response2.ok)
+        throw new Error (`http error resp2 , ${response2.status}`)
+        const [data1 , data2] = await Promise.all([response1.json(),response2.json()])
+        console.log('작가검색 패치성공');
+        const data = [data1,data2]
+        return data
+        
+      } else { 
+        const response = await fetch(
+          `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&${ftValue}=${searchValue}`,
+          {}
+        );
+        console.log('제목검색  패치성공');
+        
+        const data =response.json();
+          return data
+      }
+   } catch (err) {
+    console.error(err,'패치에러');
+    
+   }
 }
 
 export async function GET(requset: Request) {

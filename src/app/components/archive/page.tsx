@@ -13,6 +13,8 @@ const Archive = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [fetching, setFetching] = useState<boolean>(false);
   // 북필터에서 사용할 state
+  const [filterCheck, setFilterCheck] = useState<boolean>(false);
+  const [filterData, setFilterdData] = useState<IItem[]>([]);
   const [bookFilter, setBookFilter] =
     useState<IBookFilterProps["filterState"]["bookFilter"]>("");
   const [selectedBookFilter, setSelectedBookFilter] =
@@ -78,9 +80,10 @@ const Archive = () => {
   };
   // 데이터 필터에 따라 표시하는 함수
   const handleFilterChange = () => {
-    const changedData = contentData.filter(
-      (value) => value.mainGenreCdNm == selectedBookFilter
+    const filterData = contentData.filter(
+      (item) => item.mainGenreCdNm === selectedBookFilter
     );
+    setFilterdData(filterData);
   };
   const handleScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
@@ -106,11 +109,13 @@ const Archive = () => {
     handleFilterChange();
   }, [selectedBookFilter]);
   return (
-    <div className="ArchiveWrap w-full px-28 flex flex-col grow  ">
+    <div className="ArchiveWrap w-full px-28 flex flex-col grow ">
       {/* 장르별 필터  */}
       <div className="filterWrap sticky top-16 w-full h-full  z-[99] bg-white ">
         <BookFilter
           filterState={{
+            filterCheck,
+            setFilterCheck,
             bookFilter,
             setBookFilter,
             selectedBookFilter,
@@ -118,30 +123,31 @@ const Archive = () => {
           }}
         />
       </div>
-      <div className="ContentListWrap grid grid-cols-6 gap-x-5  justify-items-center bg-slate-100 mx-2">
-        {contentData.length > 0 ? (
-          contentData.map((itemList: IItem) => (
-            // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 --
-            /**  
-            10/03 필터를 눌렀을때 누른 필터와 같은장르만 남기기위해 필터state를 prop으로 내려줄때 
-            itemList이 IItem 형식에 없지만 'IArchiveContentProps' 형식에서 필수입니다.ts(2741) 오류
-            */
-            <Suspense fallback={<Loading/>}>
-
-            <ArchiveContent
-              /**
-               10/05 Encountered two children with the same key, `2023109495`. 
-               Keys should be unique so that components maintain their identity across updates. 
-               Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version
-               오류 발생 고유한 키값이 아닌여서 발생한 문제인거같은데 mastrId는 자료고유Id값인데 왜 생기는건지 모르겠다 
-               */
-              key={parseInt(itemList.mastrId)}
-              // 객체의 모드속성을 전개연산자{...}를 사용해 prop 보내기
-              {...itemList}
-              />
-              </Suspense>
-          ))
-        ): null}
+      {/* 10/10 필터를 눌러서 데이터가 바뀔때 바뀌는 애니매이션 ? 있어야 할거같음  */}
+      <div className="ContentListWrap grid grid-cols-6 gap-x-3 py-3 justify-items-center bg-slate-100 rounded-lg mx-2">
+        {
+          // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 --
+          /*
+           *10/03 필터를 눌렀을때 누른 필터와 같은장르만 남기기위해 필터state를 prop으로 내려줄때
+           *itemList이 IItem 형식에 없지만 'IArchiveContentProps' 형식에서 필수입니다.ts(2741) 오류
+           */
+          /*
+           *10/05 Encountered two children with the same key, `2023109495`.
+           *Keys should be unique so that components maintain their identity across updates.
+           *Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version
+           *오류 발생 고유한 키값이 아닌여서 발생한 문제인거같은데 mastrId는 자료고유Id값인데 왜 생기는건지 모르겠다
+           */
+          // 객체의 모드속성을 전개연산자{...}를 사용해 prop 보내기
+        }
+        <Suspense fallback={<Loading />}>
+          {filterCheck && filterData
+            ? filterData.map((itemList: IItem) => (
+                <ArchiveContent key={itemList.mastrId} {...itemList} />
+              ))
+            : contentData.map((itemList: IItem) => (
+                <ArchiveContent key={itemList.mastrId} {...itemList} />
+              ))}
+        </Suspense>
       </div>
     </div>
   );
