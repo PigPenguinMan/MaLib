@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "./components/navbar/navbar";
-import { SessionProvider } from "next-auth/react";
 import Providers from "./components/sessionprovider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,12 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <header className="header sticky top-0 z-[100] bg-white">
-            <NavBar />
-          </header>
-          {children}
-        </Providers>
+        <header className="header sticky top-0 z-[100] bg-white">
+          <NavBar />
+        </header>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

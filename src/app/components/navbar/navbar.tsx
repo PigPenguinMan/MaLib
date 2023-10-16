@@ -1,6 +1,8 @@
 "use client";
+
 import SearchBar from "./searchbar";
 import Link from "next/link";
+import NavbarSign from "./signcheck";
 
 const NavBar = () => {
   return (
@@ -28,18 +30,10 @@ const NavBar = () => {
         {/* 검색창 */}
 
         <div className="searchbar px-22 mx-6 ">
-          {" "}
-          <SearchBar />{" "}
+          <SearchBar />
         </div>
         {/* 로그인 회원가입 | 로그아웃 버튼 컴포넌트화시키기 */}
-        <ul className="flex flex-row mx-6 ">
-          <li className="signin mx-2 border-2">
-            <Link href="/account/signin">로그인</Link>
-          </li>
-          <li className="signup mx-2 border-2">
-          <Link href="/account/signup">회원가입</Link>
-          </li>
-        </ul>
+       <NavbarSign/>
       </div>
     </div>
   );

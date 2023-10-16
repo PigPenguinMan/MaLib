@@ -5,82 +5,84 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { AuthOptions } from "next-auth";
 import bcrypt from "bcrypt";
 import clientPromise from "@/lib/database";
+import { ISigninRequsetBody } from "@/types/types";
 
 const nextauthOptions: AuthOptions = {
-  session: {
-    strategy: "jwt",
-  },
-
   providers: [
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        Email: {
-          label: "Email",
+        AccountName: {
+          label: "AccountName",
           type: "text",
-          placeholder: "이메일을 입력해주세요 (xxxx@example.com)"
+          placeholder: "TYPE AccountName",
         },
-        Password: {
-          label: "Password",
-          type: "password",
-          placeholder:"비밀번호를 입력해주세요 (8자 이상)"
-        },
+        Password: { label: "Password", type: "password" },
       },
       async authorize(credentials,req) {
         try {
-          const response = await fetch(`${process.env.NEXTAUTH_URL}/api/signin`,{
-            method:'POST',
+          const response = await fetch(`${process.env.NEXTAUTH_URL_INTERNAL}/api/signin`,{
+            method:"POST",
             headers:{
-              'Content-Type' :'applicaiton/json'
-            },
+              "Content-Type" : "application/json"
+            },  
             body:JSON.stringify({
-              Email : credentials?.Email,
-              Password : credentials?.Password,
+              AccountName:credentials?.AccountName,
+              Password:credentials?.Password
             })
           })
-          console.log('response',response);
-          
           const user = await response.json();
-          console.log('user',user);
+
+          console.log('AUTH API user',user);
           
           if(user){
-            return user
-          }else { 
-            return null 
+            return user ;
+          } else {
+            return null ;
           }
         } catch (err) {
-          console.log('Signin API Err',err);
-          
+          throw new Error(`AUTH API ERROR ,${err}`)
         }
-        const client = await clientPromise;
-        const userCollection = client
-          .db(process.env.MONGODB_DB_NAME)
-          .collection("User");
-        const userMail = credentials?.Email.toLowerCase();
-        const user = await userCollection.findOne({ userMail });
-        if (!user) {
-          throw new Error("User not exsist");
-        }
-        const passwordValid = await bcrypt.compare(
-          credentials?.Password!,
-          user.password
-        );
-        if (!passwordValid) {
-          throw new Error("Invalid Password");
-        }
-        return {
-          id: user._id.toString(),
-          ...user,
-        };
-      },
+        },
     }),
   ],
+  
+  callbacks: {
+    async jwt({ token }) {
+      return { ...token};
+    },
+    async session({ session, token }) {
+      session.user = token as any;
+      return session;
+    },
+  },
   pages:{
-    signIn : '/account/signin'
-  }
+    signIn:"/account/signin"
+  },
+
 };
 
 const handler = NextAuth(nextauthOptions);
 
+export { handler as POST, handler as GET };
 
-export {handler as POST, handler as GET}
+// const client = await clientPromise;
+// const userCollection = client
+//   .db(process.env.MONGODB_DB_NAME)
+//   .collection("User");
+// const userMail = credentials?.Email.toLowerCase();
+// const user = await userCollection.findOne({ userMail });
+// if (!user) {
+//   throw new Error("User not exsist");
+// }
+// const passwordValid = await bcrypt.compare(
+//   credentials?.Password!,
+//   user.password
+// );
+// if (!passwordValid) {
+//   throw new Error("Invalid Password");
+// }
+// return {
+//   id: user._id.toString(),
+//   ...user,
+// };

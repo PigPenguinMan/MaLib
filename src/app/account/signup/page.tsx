@@ -5,7 +5,7 @@ import { useState } from "react";
 // ID , PW , 닉네임 , 이메일
 const SignUpMain = () => {
   const [info, setInfo] = useState({
-    Email: "",
+    AccountName: "",
     Password: "",
     PasswordAgain: "",
     Name: "",
@@ -25,11 +25,12 @@ const SignUpMain = () => {
   };
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+    
     if (info.Password !== info.PasswordAgain) {
       console.error("비밀번호가 다릅니다");
       return;
     }
-    const response = await fetch(`/api/auth/signup`, {
+    const response = await fetch(`/api/signup`, {
       method: "POST",
       body: JSON.stringify(info),
       headers: {
@@ -47,10 +48,10 @@ const SignUpMain = () => {
         >
           <input
             type="text"
-            id="Email"
+            id="AccountName"
             onChange={handleOnChagne}
-            placeholder="Email address"
-            value={info.Email}
+            placeholder="Account Name"
+            value={info.AccountName}
             autoFocus
           />
           <input

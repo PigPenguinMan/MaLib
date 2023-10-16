@@ -2,19 +2,14 @@ import ArchiveMain from "./archive/page";
 
 const Main = () => {
   return (
-
     <body>
-
       <div className="wrap relative flex flex-col m-auto ">
-     
         <div className="content">
-        <section className="">
-          <ArchiveMain/>
-        </section>
+          <section className="">
+            <ArchiveMain />
+          </section>
         </div>
-        <div className="footer">
-
-        </div>
+        <div className="footer"></div>
       </div>
     </body>
   );

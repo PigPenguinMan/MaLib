@@ -1,3 +1,5 @@
+import {} from "mongodb/";
+
 export interface BookProps {
   mastrId: string;
   listSeCd: string;
@@ -113,40 +115,39 @@ export interface ISearchData {
 
 export interface IBookFilterProps {
   filterState: {
-    filterCheck : boolean;
-    setFilterCheck  : React.Dispatch<React.SetStateAction<boolean>>;
+    filterCheck: boolean;
+    setFilterCheck: React.Dispatch<React.SetStateAction<boolean>>;
     bookFilter: string;
     setBookFilter: React.Dispatch<React.SetStateAction<string>>;
     selectedBookFilter: string;
     setSelectedBookFilter: React.Dispatch<React.SetStateAction<string>>;
   };
- 
 }
 
-export interface IArchiveContentProps { 
-  itemList : IItem;
-  selectedBookFilter : string
+export interface IArchiveContentProps {
+  itemList: IItem;
+  selectedBookFilter: string;
 }
 // export interface ISignUpRequestBody{
 //   Email : string ;
-//   Password : string ; 
+//   Password : string ;
 //   Name : string ;
 //   Role : string ;
 //   Created_At : string ;
-//   Updated_At : string ; 
+//   Updated_At : string ;
 //   Profile_pic : string ;
 //   Is_Adult : boolean ;
 // }
 
-export interface ISignupRequestBody{
-    Email: string ;
-    Password: string ;
-    PasswordAgain: string ;
-    Name: string ;
-    IsAdult: boolean ;
+export interface ISignupRequestBody {
+  AccountName: string;
+  Password: string;
+  PasswordAgain: string;
+  Name: string;
+  IsAdult: boolean;
 }
 
-export interface ISigninRequsetBody{
-  Email : string ; 
-  Password : string ;
+export interface ISigninRequsetBody {
+  AccountName: string;
+  Password: string;
 }

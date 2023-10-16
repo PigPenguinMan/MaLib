@@ -1,3 +1,4 @@
+// 회원가입에 사용할 api
 import clientPromise from "@/lib/database";
 import { ISignupRequestBody } from "@/types/types";
 import bcrypt from "bcrypt";
@@ -30,7 +31,7 @@ export async function POST(requset: Request) {
       .replace(/\./g, "/")
       .slice(0, -1);
     let userInfo = {
-      Email: body.Email,
+      AccountName: body.AccountName,
       Password: hashedPw,
       Name: body.Name,
       Role: "admin",
@@ -39,7 +40,7 @@ export async function POST(requset: Request) {
       Profile_pic: "",
     };
 
-    // await userCollection.insertOne(userInfo)
+    await userCollection.insertOne(userInfo)
     return NextResponse.json({ success: true, userInfo });
   } catch (err) {
     console.error("signUp API err", err);

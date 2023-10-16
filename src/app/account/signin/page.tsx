@@ -1,37 +1,50 @@
 // 로그인 페이지
 'use client'
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
 // ID , PW , 회원가입 , ID찾기 , PW찾기
 const SignInMain = () => {
   const [signinData,setSigninData] = useState({
-    Email : "",
+    AccountName : "",
     Password : ""
   })
 
+  const {data : session} = useSession();
   
 
+  console.log('session',session);
+  
   const handleOnChagne :React.ChangeEventHandler<HTMLInputElement> = (e)=>{
     setSigninData({...signinData,[e.target.id]: e.target.value})
   }
 
   const handleSubmit = async(e: React.SyntheticEvent) => {
     e.preventDefault();
+    console.log('AccountName',signinData.AccountName);
+    console.log('pass',signinData.Password);
+    
+    
     // const response = await fetch(`/api/signin`,{
     //   method:'POST',
     //   body: JSON.stringify(signinData),
     //   headers: {
     //     "Content-Type": "application/json",
     //   },
+    //   credentials:"include"
     // })
-    const result = await signIn("credentials",{
-      Email : signinData.Email,
-      Password : signinData.Password,
   
+    
+    const response = await signIn("credentials",{
+      AccountName : signinData.AccountName,
+      Password : signinData.Password,
+      redirect: true ,
+      callbackUrl: '/'
     })
-    console.log('result',result);
+   
+    
+    
     
   };
   return (
@@ -40,11 +53,11 @@ const SignInMain = () => {
         <form onSubmit={handleSubmit} className="Signin_form flex flex-col items-center p-10 gap-y-5  ">   
           <input
             type="text"
-            id="Email"
+            id="AccountName"
             onChange={handleOnChagne}
             className="w-full h-10 border-b-2"
-            placeholder="Email address (example@example.com)"
-            value={signinData.Email}
+            placeholder="Account Name"
+            value={signinData.AccountName}
             autoFocus
           />
           <input
