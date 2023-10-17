@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^2.0.2",
     "@svgr/webpack": "^8.1.0",
     "@types/bcrypt": "^5.0.0",
     "@types/react": "18.2.21",

@@ -38,6 +38,7 @@ export async function POST(requset: Request) {
       Created_at: time,
       Updated_at: "",
       Profile_pic: "",
+      IsAdult: body.IsAdult ? true : false ,
     };
 
     await userCollection.insertOne(userInfo)

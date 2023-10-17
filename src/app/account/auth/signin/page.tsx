@@ -10,10 +10,7 @@ const SignInMain = () => {
     AccountName : "",
     Password : ""
   })
-
   const {data : session} = useSession();
-  
-
   console.log('session',session);
   
   const handleOnChagne :React.ChangeEventHandler<HTMLInputElement> = (e)=>{
@@ -22,30 +19,15 @@ const SignInMain = () => {
 
   const handleSubmit = async(e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log('AccountName',signinData.AccountName);
-    console.log('pass',signinData.Password);
-    
-    
-    // const response = await fetch(`/api/signin`,{
-    //   method:'POST',
-    //   body: JSON.stringify(signinData),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   credentials:"include"
-    // })
-  
-    
-    const response = await signIn("credentials",{
-      AccountName : signinData.AccountName,
-      Password : signinData.Password,
-      redirect: true ,
-      callbackUrl: '/'
+    const response = signIn("credentials",{
+      AccountName: signinData.AccountName,
+      Password: signinData.Password
     })
-   
     
-    
-    
+    const result = await response
+    console.log('signin Page result',result);
+    // 10/17 로그인 실패했을때 코드에 따라 창 띄워주기 (계정틀림,PW틀림) 
+
   };
   return (
     <div  className="Signin_wrap relative flex justify-center w-full h-full p-28">

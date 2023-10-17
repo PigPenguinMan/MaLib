@@ -1,6 +1,7 @@
 /**
  *ref https://www.mongodb.com/docs/atlas/tutorial/insert-data-into-your-cluster/
  *https://reacthustle.com/blog/how-to-implement-mongodb-authentication-in-nextjs-nextauthjs
+ * https://authjs.dev/reference/adapter/mongodb 
  */
 
 import { MongoClient, MongoClientOptions } from "mongodb";

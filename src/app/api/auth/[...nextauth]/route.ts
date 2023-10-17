@@ -1,70 +1,53 @@
 // ref https://reacthustle.com/blog/how-to-implement-mongodb-authentication-in-nextjs-nextauthjs
 // https://next-auth.js.org/configuration/initialization
 import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { AuthOptions } from "next-auth";
-import bcrypt from "bcrypt";
-import clientPromise from "@/lib/database";
-import { ISigninRequsetBody } from "@/types/types";
-
-const nextauthOptions: AuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        AccountName: {
-          label: "AccountName",
-          type: "text",
-          placeholder: "TYPE AccountName",
-        },
-        Password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials,req) {
-        try {
-          const response = await fetch(`${process.env.NEXTAUTH_URL_INTERNAL}/api/signin`,{
-            method:"POST",
-            headers:{
-              "Content-Type" : "application/json"
-            },  
-            body:JSON.stringify({
-              AccountName:credentials?.AccountName,
-              Password:credentials?.Password
-            })
-          })
-          const user = await response.json();
-
-          console.log('AUTH API user',user);
-          
-          if(user){
-            return user ;
-          } else {
-            return null ;
-          }
-        } catch (err) {
-          throw new Error(`AUTH API ERROR ,${err}`)
-        }
-        },
-    }),
-  ],
-  
-  callbacks: {
-    async jwt({ token }) {
-      return { ...token};
-    },
-    async session({ session, token }) {
-      session.user = token as any;
-      return session;
-    },
-  },
-  pages:{
-    signIn:"/account/signin"
-  },
-
-};
-
-const handler = NextAuth(nextauthOptions);
-
+import { authOptions2 } from "@/lib/auth";
+const handler = NextAuth(authOptions2);
 export { handler as POST, handler as GET };
+// const nextauthOptions: AuthOptions = {
+//   providers: [
+//     CredentialsProvider({
+//       name: "credentials",
+//       credentials: {
+//         AccountName: {
+//           label: "AccountName",
+//           type: "text",
+//           placeholder: "TYPE AccountName",
+//         },
+//         Password: { label: "Password", type: "password" },
+//       },
+//       async authorize(credentials,req) {
+//         try {
+//           const response = await fetch(`${process.env.NEXTAUTH_URL_INTERNAL}/api/signin`,{
+//             method:"POST",
+//             headers:{
+//               "Content-Type" : "application/json"
+//             },
+//             body:JSON.stringify({
+//               AccountName:credentials?.AccountName,
+//               Password:credentials?.Password
+//             })
+//           })
+//           const user = await response.json();
+
+//           console.log('AUTH API user',user);
+
+//           if(user){
+//             return user ;
+//           } else {
+//             return null ;
+//           }
+//         } catch (err) {
+//           throw new Error(`AUTH API ERROR ,${err}`)
+//         }
+//         },
+//     }),
+//   ],
+//   pages:{
+//     signIn:"/account/signin"
+//   },
+
+// };
 
 // const client = await clientPromise;
 // const userCollection = client
