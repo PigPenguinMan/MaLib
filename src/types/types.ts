@@ -1,4 +1,4 @@
-import {} from "mongodb/";
+
 
 export interface BookProps {
   mastrId: string;
@@ -150,4 +150,20 @@ export interface ISignupRequestBody {
 export interface ISigninRequsetBody {
   AccountName: string;
   Password: string;
+}
+
+
+export interface IDefaultUser {
+  AccountName : string ;
+  Password : string ;
+  Name : string ;
+  Role : string ;
+  Created_At : string ;
+  Updated_At : string ;
+  Profile_pic : string ;
+  Is_Adult : boolean ;
+}
+
+export interface IUser extends IDefaultUser{
+  
 }

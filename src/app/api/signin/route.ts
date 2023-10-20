@@ -6,6 +6,8 @@ import { NextResponse } from "next/server";
 export async function POST(requset: Request) {
   try {
     const body: ISigninRequsetBody = await requset.json();
+    console.log('signin API BODY');
+    
     const client = await clientPromise;
     const userCollection = client
       .db(process.env.MONGODB_DB_NAME)
@@ -29,6 +31,7 @@ export async function POST(requset: Request) {
           success: true,
           message: "success signin",
           code: "1",
+
         });
       }
     } else {

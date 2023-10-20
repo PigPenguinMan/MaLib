@@ -1,6 +1,6 @@
 // 로그인 페이지
 'use client'
-import { signIn, useSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -10,9 +10,12 @@ const SignInMain = () => {
     AccountName : "",
     Password : ""
   })
-  const {data : session} = useSession();
-  console.log('session',session);
   
+    async function session() {
+      const session = await getSession();
+      console.log(session);
+      
+    }
   const handleOnChagne :React.ChangeEventHandler<HTMLInputElement> = (e)=>{
     setSigninData({...signinData,[e.target.id]: e.target.value})
   }
@@ -21,11 +24,11 @@ const SignInMain = () => {
     e.preventDefault();
     const response = signIn("credentials",{
       AccountName: signinData.AccountName,
-      Password: signinData.Password
+      Password: signinData.Password,
     })
     
-    const result = await response
-    console.log('signin Page result',result);
+    // const result = await response
+    // console.log('signin Page result',result);
     // 10/17 로그인 실패했을때 코드에 따라 창 띄워주기 (계정틀림,PW틀림) 
 
   };
@@ -52,7 +55,7 @@ const SignInMain = () => {
             minLength={8}
             required
           />
-          <button   className="text-lg w-3/4 bg-slate-400 mt-3 py-4 rounded-lg"> 로그인 </button>
+          <button  className="text-lg w-3/4 bg-slate-400 mt-3 py-4 rounded-lg"> 로그인 </button>
         </form>
         <div className="LinkWrap flex justify-evenly my-7 text-sm opacity-60 ">
           <div>
