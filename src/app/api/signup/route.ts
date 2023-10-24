@@ -1,4 +1,5 @@
 // 회원가입에 사용할 api
+import { authOptions2 } from "@/lib/auth";
 import clientPromise from "@/lib/database";
 import { ISignupRequestBody } from "@/types/types";
 import bcrypt from "bcrypt";
@@ -10,7 +11,7 @@ export async function POST(requset: Request) {
     const client = await clientPromise;
     const userCollection = client
       .db(process.env.MONGODB_DB_NAME)
-      .collection("User");
+      .collection("Users");
     const currentTime = new Date().toLocaleDateString();
     const handlerHashPw =  async (Pw: string) => {
       //  hash에 사용할 Salt 생성
@@ -40,9 +41,17 @@ export async function POST(requset: Request) {
       Profile_pic: "",
       IsAdult: body.IsAdult ? true : false ,
     };
-
-    await userCollection.insertOne(userInfo)
-    return NextResponse.json({ success: true, userInfo });
+    const checkDupAcNm = await userCollection.findOne({
+      AccountName : userInfo.AccountName 
+    })
+    const adpater  = authOptions2.adapter
+    
+    if(checkDupAcNm){
+      return NextResponse.json({success:false ,message:'이미 같은 이름의 계정이 있습니다'})
+    } else { 
+      await userCollection.insertOne(userInfo)
+      return NextResponse.json({ success: true, userInfo });
+    }
   } catch (err) {
     console.error("signUp API err", err);
   }

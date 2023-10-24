@@ -1,24 +1,18 @@
-'use client'
+"use client";
 
-import { getSession, useSession } from "next-auth/react";
+import {  useSession } from "next-auth/react";
 
 const UserPage = () => {
-  
-  async function getSession() {
-    const session = await getSession();
-    console.log('getSession session',session);
+  const { data: session } = useSession();
 
-  }
-  const session = useSession();
-  console.log('useSession session', session);
-  
-  
-  
+  // console.log(session,status);
+
   return (
-  <div>
-    
-  </div>
-  )
+    <div className="user_page_main flex flex-col  items-center justify-center w-full h-full ">
+      <div>{session?.user?.id}</div>
+      <div>{session?.user?.name}</div>
+    </div>
+  );
 };
 
 export default UserPage;

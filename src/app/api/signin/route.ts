@@ -27,12 +27,7 @@ export async function POST(requset: Request) {
         });
       } else {
         // 계정과 비밀번호가 둘 다 맞을때 메세지
-        return NextResponse.json({
-          success: true,
-          message: "success signin",
-          code: "1",
-
-        });
+        return NextResponse.json(user);
       }
     } else {
       // 입력한계정이 데이터베이스에 없을때 메세지

@@ -25,7 +25,6 @@ const SignUpMain = () => {
   };
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    
     if (info.Password !== info.PasswordAgain) {
       console.error("비밀번호가 다릅니다");
       return;

@@ -1,12 +1,23 @@
 // ref  https://codevoweb.com/nextjs-use-custom-login-and-signup-pages-for-nextauth-js/
 
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "./database";
 import { randomBytes, randomUUID } from "crypto";
+
+import { AdapterUser } from "next-auth/adapters";
+
 export const authOptions2: NextAuthOptions = {
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise, {
+    databaseName: process.env.MONGODB_DB_NAME,
+    collections: {
+      Accounts: "Account",
+      Sessions: "Session",
+      Users: "User",
+      VerificationTokens: "VerificationTokens",
+    },
+  }),
   pages: {
     signIn: "/account/auth/signin",
   },
@@ -15,10 +26,8 @@ export const authOptions2: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30일
     updateAge: 24 * 60 * 60, // 24시간
-    generateSessionToken: () => {
-      return randomUUID?.() ?? randomBytes(32).toString("hex");
-    },
   },
+  // ref https://remaster.com/blog/next-auth-jwt-session
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
@@ -42,8 +51,13 @@ export const authOptions2: NextAuthOptions = {
           headers: { "Content-Type": "application/json" },
         });
         const user = await response.json();
+        const request = req.body;
+        // req.body === user
+
+        // console.log('requ',request);
+
         if (response.ok && user) {
-          return user;
+          return user as any;
         }
         return null;
       },
@@ -52,41 +66,52 @@ export const authOptions2: NextAuthOptions = {
   // callback ref https://next-auth.js.org/configuration/callbacks#redirect-callback
 
   callbacks: {
-    async redirect({ url, baseUrl }) {
-      if (url.startsWith("/")) {
-        return `${baseUrl}${url}`;
-      } else if (new URL(url).origin === baseUrl) {
-        return url;
-      }
-      console.log(`baseurl url`,baseUrl+url);
-      
-      return baseUrl;
-    },
-    // When using the Credentials Provider the user object is the response returned from the authorize callback and the profile object is the raw body of the HTTP POST submission.
-    // user = authorize의 리턴된 response , profile = POST의 raw body
     async signIn({ user, credentials }) {
-      console.log("user", user);
-      console.log("credential", credentials);
+      // console.log("Callback user ", user);
+      // console.log("credential", credentials);
       const isAllowSignIn = true;
-      if (isAllowSignIn) {
+      if (isAllowSignIn && user) {
         return true;
       } else {
         return false;
       }
     },
-    async jwt({ token, user, account }) {
-      if (user) {
-        token.name = user.name;
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`;
+      } else if (new URL(url).origin === baseUrl) {
+        url = baseUrl;
+        return url;
       }
-      console.log("token account", account?.access_token);
-      console.log("token", token);
+      return baseUrl;
+    },
+    jwt: async (params: {
+      token: any;
+      user: any;
+      trigger?: any;
+      session?: any;
+    }): Promise<any> => {
+      const { token, user, trigger, session } = params;
+      if (user) {
+        token.user = {};
+        token.user.id = user._id;
+        token.user.name = user.Name;
+        token.user.role = user.Role;
+      }
+      if (trigger === "update" && session.name) {
+        token.user.name = session.name;
+      }
+      // console.log('token',token)
+      // console.log('token user',user)
+      // console.log('token session',session);
+      // console.log('-----');
+
       return token;
     },
-    async session({ session, token, user }) {
-      if (session.user) {
-        session.user.name = token.name;
-      }
-      console.log("session", session);
+    session: async ({ session, token }: { session: any; token: any }) => {
+      // console.log('session session',session)
+      // console.log('session token',token)
+      session.user = token.user;
       return session;
     },
   },

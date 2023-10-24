@@ -11,11 +11,11 @@ const SignInMain = () => {
     Password : ""
   })
   
-    async function session() {
-      const session = await getSession();
-      console.log(session);
+    // async function session() {
+    //   const session = await getSession();
+    //   console.log(session);
       
-    }
+    // }
   const handleOnChagne :React.ChangeEventHandler<HTMLInputElement> = (e)=>{
     setSigninData({...signinData,[e.target.id]: e.target.value})
   }
@@ -25,7 +25,10 @@ const SignInMain = () => {
     const response = signIn("credentials",{
       AccountName: signinData.AccountName,
       Password: signinData.Password,
-    })
+      redirect:true
+    }
+    )
+    
     
     // const result = await response
     // console.log('signin Page result',result);

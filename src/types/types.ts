@@ -12,7 +12,6 @@ export interface BookProps {
   orginlNationCdNm: string;
   imageDownloadUrl: string;
 }
-
 export interface IResult {
   listSeCd: string;
   pageNo: number;
@@ -77,12 +76,10 @@ export interface IItem {
   cnsleNm: string | null;
   imageDownloadUrl: string;
 }
-
 export interface IBookData {
   result: IResult;
   itemList: IItem[];
 }
-
 export interface ISearchResult {
   pageNo: number;
   resultMessage: string;
@@ -90,7 +87,6 @@ export interface ISearchResult {
   totalcount: number;
   viewItemCnt: number;
 }
-
 export interface ISearchItem {
   prdctNm: string;
   title: string;
@@ -139,6 +135,16 @@ export interface IArchiveContentProps {
 //   Is_Adult : boolean ;
 // }
 
+export interface IIsLoginProp{
+  isLogin : boolean;
+  setIsLogin : React.Dispatch<React.SetStateAction<boolean>>;
+  user? : {
+    id: string ; 
+    name : string ; 
+    role : string ;
+  }
+}
+
 export interface ISignupRequestBody {
   AccountName: string;
   Password: string;
@@ -162,8 +168,4 @@ export interface IDefaultUser {
   Updated_At : string ;
   Profile_pic : string ;
   Is_Adult : boolean ;
-}
-
-export interface IUser extends IDefaultUser{
-  
 }

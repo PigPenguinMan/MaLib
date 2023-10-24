@@ -3,8 +3,25 @@
 import SearchBar from "./searchbar";
 import Link from "next/link";
 import NavbarSign from "./signcheck";
+import { useEffect, useState } from "react";
+import { getSession, useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 
 const NavBar = () => {
+  const [isLogin , setIsLogin]= useState<boolean>(false);
+  const {data : session,status} = useSession();
+ 
+  useEffect(()=>{
+    if(status === 'authenticated'){
+      setIsLogin(true)
+    }else if ( status ==='unauthenticated'){
+      setIsLogin(false)
+    }
+    
+    console.log('세션 데이터',session)
+    console.log('로그인상태',status)
+  },[status]) 
+
   return (
     // 작업완료후 class border-2 삭제
     <div className="flex flex-row items-center justify-between h-16 p-6 ">
@@ -33,7 +50,7 @@ const NavBar = () => {
           <SearchBar />
         </div>
         {/* 로그인 회원가입 | 로그아웃 버튼 컴포넌트화시키기 */}
-       <NavbarSign/>
+       <NavbarSign isLogin={isLogin} setIsLogin={setIsLogin} user={session?.user} />
       </div>
     </div>
   );
