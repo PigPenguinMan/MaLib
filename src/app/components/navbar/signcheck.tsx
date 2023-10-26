@@ -8,7 +8,7 @@ const NavbarSign = ({isLogin,setIsLogin,user}:IIsLoginProp) => {
       {isLogin ? (
         <ul className="flex flex-row mx-6 ">
           <li className="userprofile flex flex-row">
-            <Link href={`/account/user/${user?.id}`}>
+            <Link href={`/account/user/${user?.id}/`}>
             <div className="user_img"></div>
             <div className="user_name">{user?.name}</div>
             </Link>

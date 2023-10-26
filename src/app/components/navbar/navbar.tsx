@@ -8,19 +8,19 @@ import { getSession, useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 
 const NavBar = () => {
-  const [isLogin , setIsLogin]= useState<boolean>(false);
-  const {data : session,status} = useSession();
- 
-  useEffect(()=>{
-    if(status === 'authenticated'){
-      setIsLogin(true)
-    }else if ( status ==='unauthenticated'){
-      setIsLogin(false)
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setIsLogin(true);
+    } else if (status === "unauthenticated") {
+      setIsLogin(false);
     }
-    
-    console.log('세션 데이터',session)
-    console.log('로그인상태',status)
-  },[status]) 
+
+    console.log("세션 데이터", session);
+    console.log("로그인상태", status);
+  }, [status]);
 
   return (
     // 작업완료후 class border-2 삭제
@@ -33,14 +33,18 @@ const NavBar = () => {
       <nav>
         <ul className="flex flex-row border-2">
           <li>
-            <Link href="/archive" className="px-2">아카이브</Link>
+            <Link href="/archive" className="px-2">
+              아카이브
+            </Link>
           </li>
           <li>
-            <Link href="/board" className="px-2">게시판</Link>
+            <Link href="/board" className="px-2">
+              게시판
+            </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="archive" className="px-2">성향 만화찾기</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
       <div className="flex flex-row basis-2/3 justify-end">
@@ -50,7 +54,11 @@ const NavBar = () => {
           <SearchBar />
         </div>
         {/* 로그인 회원가입 | 로그아웃 버튼 컴포넌트화시키기 */}
-       <NavbarSign isLogin={isLogin} setIsLogin={setIsLogin} user={session?.user} />
+        <NavbarSign
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+          user={session?.user}
+        />
       </div>
     </div>
   );

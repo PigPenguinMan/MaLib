@@ -230,18 +230,7 @@ export default function BookDetailPage({
             <div className="desc_bottom relative flex flex-col w-full h-min-[inherit] p-6 bg-slate-100 rounded-xl">
               <div className="text-2xl mb-5">작가의 다른작품</div>
               <div className="desc_artist grid grid-cols-5 px-5 gap-2 justify-items-center rounded-md">
-                {/* 같은작가 작품표시 */}
-                {/**
-                 * api로 받아오기 ? 아니면 데이터안에서 찾기 ?
-                 * 1. api로 받아오면 데이터 불러오는 시간 증가
-                 * 2. 이미 불러온 데이터안에서 찾으면 데이터가 한번에 100개밖에 못들어오기때문에 너무 적은데이터
-                 */}
-                {/**
-                 * 10/07 인포데이터 추가후 디테일 페이지에 들어오면
-                 * 431 Request Header Fields Too Large 오류 발생
-                 * 우선 해결방법으로 node.js의 --max-http-header-size=size 를 수정 하려고함
-                 * 나중에 다른 해결방법 찾기 필요
-                 */}
+              
                 <Suspense fallback={<Loading />}>
                   {infoData.map((itemList) => (
                     <ArchiveInfoContent key={itemList.isbn} {...itemList} />
