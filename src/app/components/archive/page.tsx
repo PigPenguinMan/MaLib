@@ -4,9 +4,13 @@ import BookFilter from "@/app/utils/bookfilter";
 import throttle from "lodash/throttle";
 import { IBookFilterProps, IItem } from "@/types/types";
 import { Suspense, useEffect, useState } from "react";
-import { ArchiveContent } from "@/app/utils/content";
+import React from "react";
 import Loading from "@/app/utils/loading";
+// import { ArchiveContent } from "@/app/utils/content";
 
+const ArchiveContent = React.lazy(()=>import('@/app/utils/content').then(module => ({
+  default : module.ArchiveContent,
+})));
 const Archive = () => {
   const [contentData, setContentData] = useState<IItem[]>([]);
   const [moreData, setMoreData] = useState<IItem[]>([]);
@@ -22,6 +26,7 @@ const Archive = () => {
   let pageNo = 1;
   let pageNo2 = 1500;
   // 데이터 패치에 필요한 함수들
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -142,7 +147,7 @@ const Archive = () => {
         <Suspense fallback={<Loading />}>
           {filterCheck && filterData
             ? filterData.map((itemList: IItem) => (
-                <ArchiveContent key={itemList.mastrId} {...itemList} />
+                <ArchiveContent  key={itemList.mastrId} {...itemList} />
               ))
             : contentData.map((itemList: IItem) => (
                 <ArchiveContent key={itemList.mastrId} {...itemList} />

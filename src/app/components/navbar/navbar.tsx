@@ -5,7 +5,6 @@ import Link from "next/link";
 import NavbarSign from "./signcheck";
 import { useEffect, useState } from "react";
 import { getSession, useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
 
 const NavBar = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -23,15 +22,14 @@ const NavBar = () => {
   }, [status]);
 
   return (
-    // 작업완료후 class border-2 삭제
-    <div className="flex flex-row items-center justify-between h-16 p-6 ">
-      <h1 className="border-2">
+    <div className="flex flex-row items-center justify-between h-16 p-6 bg-DarkGreen/25 text-Green/90">
+      <h1 className="">
         <a href="">로고</a>
       </h1>
       {/* 로고 아이콘 */}
       {/* 메뉴 1~3 */}
       <nav>
-        <ul className="flex flex-row border-2">
+        <ul className="flex flex-row">
           <li>
             <Link href="/archive" className="px-2">
               아카이브

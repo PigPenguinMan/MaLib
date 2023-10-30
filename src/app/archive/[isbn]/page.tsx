@@ -83,7 +83,7 @@ export default function BookDetailPage({
   }, []);
 
   return (
-    <Suspense fallback={<Loading />}>
+
       <div className="detail_wrap flex flex-col flex-1 grow w-full px-28 ">
         <div className="detail_top flex pt-6 gap-2  ">
           <div className="img_container relative flex flex-col  ">
@@ -231,17 +231,14 @@ export default function BookDetailPage({
               <div className="text-2xl mb-5">작가의 다른작품</div>
               <div className="desc_artist grid grid-cols-5 px-5 gap-2 justify-items-center rounded-md">
               
-                <Suspense fallback={<Loading />}>
                   {infoData.map((itemList) => (
                     <ArchiveInfoContent key={itemList.isbn} {...itemList} />
                   ))}
-                </Suspense>
               </div>
             </div>
           </div>
         </div>
         <div className="detail_infoWrap relative flex w-full h-80 mt-6 bg-slate-100 rounded-xl"></div>
       </div>
-    </Suspense>
   );
 }

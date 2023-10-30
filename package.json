@@ -24,6 +24,7 @@
     "mongodb": "^6.1.0",
     "next": "13.4.19",
     "next-auth": "^4.23.2",
+    "nextjs-progressbar": "^0.0.16",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",

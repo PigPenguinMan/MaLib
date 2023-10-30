@@ -24,7 +24,7 @@ export function ArchiveContent(itemList: IItem) {
   const queryString = params.toString();
 
   return (
-    <div className="innerContent w-full min-h-[300px] rounded-md pb-10 px-2 ">
+    <div className="innerContent  w-full min-h-[300px] rounded-md pb-10 px-2 ">
       <Link
         href={{
           pathname: `/archive/${itemList.isbn}`,
