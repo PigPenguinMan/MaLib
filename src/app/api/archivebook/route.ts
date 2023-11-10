@@ -8,10 +8,10 @@ async function fetchData(pageNo : string |null , pageNo2 :string|null ) {
   try {
     const [response1,response2] = await Promise.all([
       fetch(
-        `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&&pageNo=${pageNo}`,{}
+        `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&pageNo=${pageNo}`,{}
       ),
       fetch(
-        `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&&pageNo=${pageNo2}`,{}
+        `${apiURL}?prvKey=${apiKey}&viewItemCnt=${viewItemCnt}&listSeCd=${2}&pageNo=${pageNo2}`,{}
       )
     ])
     if (!response1.ok) 

@@ -4,11 +4,18 @@ import SearchBar from "./searchbar";
 import Link from "next/link";
 import NavbarSign from "./signcheck";
 import { useEffect, useState } from "react";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 
 const NavBar = () => {
+  const navList = [
+    { name: "아카이브", link: "/archive" },
+    { name: "게시판", link: "/board" },
+  ];
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState();
   const { data: session, status } = useSession();
+  const params = usePathname();
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -16,10 +23,12 @@ const NavBar = () => {
     } else if (status === "unauthenticated") {
       setIsLogin(false);
     }
-
     console.log("세션 데이터", session);
     console.log("로그인상태", status);
   }, [status]);
+  useEffect(() => {
+    // 현재 위치의 nav에 아랫줄 표시
+  }, []);
 
   return (
     <div className="flex flex-row items-center justify-between h-16 p-6 bg-DarkGreen/25 text-Green/90">
@@ -30,16 +39,13 @@ const NavBar = () => {
       {/* 메뉴 1~3 */}
       <nav>
         <ul className="flex flex-row">
-          <li>
-            <Link href="/archive" className="px-2">
-              아카이브
-            </Link>
-          </li>
-          <li>
-            <Link href="/board" className="px-2">
-              게시판
-            </Link>
-          </li>
+          {navList.map((nav) => (
+            <li key={nav.name}>
+              <Link href={nav.link} className="px-2">
+                {nav.name}
+              </Link>
+            </li>
+          ))}
           {/* <li>
             <Link href="archive" className="px-2">성향 만화찾기</Link>
           </li> */}

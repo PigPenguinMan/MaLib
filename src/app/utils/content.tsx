@@ -1,4 +1,5 @@
 import { IItem, ISearchItem } from "@/types/types";
+import Image from "next/image";
 import Link from "next/link";
 
 // 데이터에 해당하는 작가 글,그림작가가 있을때 있는 작가만 표시
@@ -12,6 +13,8 @@ function dispArtist(pictrWritrNm: string | null, sntncWritrNm: string | null) {
     return sntncWritrNm;
   }
 }
+
+// content Image size 지정해주기 
 export function ArchiveContent(itemList: IItem) {
   const params = new URLSearchParams();
   // url로 데이터 전달하기 위한 queryString
@@ -32,11 +35,12 @@ export function ArchiveContent(itemList: IItem) {
         }}
       >
         <div className="relative  w-full h-full rounded-md   ">
-          <img
+        <Image src={`${itemList.imageDownloadUrl}`} alt={`${itemList.title}`} fill={true} className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"/>
+          {/* <img
             className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"
             src={`${itemList.imageDownloadUrl}`}
             alt={`${itemList.title}`}
-          />
+          /> */}
         </div>
         <div className="relative flex flex-col items-start ">
           <span className="text-sm line-clamp-1 opacity-75">
@@ -71,11 +75,12 @@ export function ResultContent(itemList: ISearchItem) {
         }}
       >
         <div className="relative w-full h-full rounded-md">
-          <img
+          <Image src={`${itemList.imageDownloadUrl}`} alt={`${itemList.prdctNm}`} className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"/>
+          {/* <img
             className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"
             src={`${itemList.imageDownloadUrl}`}
             alt={`${itemList.prdctNm}`}
-          />
+          /> */}
         </div>
         <div className="relative flex flex-col items-start ">
           <span className="text-sm line-clamp-1 opacity-75">
@@ -99,7 +104,7 @@ export function ArchiveInfoContent(itemList: ISearchItem) {
     }
   }
   const queryString = params.toString();
-
+  console.log(itemList.imageDownloadUrl)
   return (
     <div className="archiveContent flex flex-col w-full min-h-[200px] overflow-hidden">
       <Link
@@ -109,11 +114,12 @@ export function ArchiveInfoContent(itemList: ISearchItem) {
         }}
       >
         <div className="relative w-full h-56 ">
-          <img
+          <Image src={`${itemList.imageDownloadUrl}`} alt={`${itemList.prdctNm}`} fill={true} className="w-full h-full object-cover rounded-md"/>
+          {/* <img
             src={`${itemList.imageDownloadUrl}`}
             alt={`${itemList.prdctNm}`}
             className="relative w-full h-full object-cover rounded-md"
-          />
+          /> */}
         </div>
         <div className="relative flex flex-col items-start ">
           <span className="text-sm line-clamp-1 opacity-75 pt-2">

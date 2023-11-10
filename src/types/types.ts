@@ -170,3 +170,17 @@ export interface IDefaultUser {
   Is_Adult : boolean ;
 }
 
+export interface IBoardContent {
+    _id : string;
+    contentText :string ;
+    heart : string; 
+    reply : string; 
+    userImg : string | null;
+    userName : string; 
+}
+
+
+export interface IBoardGETResponse {
+  success : boolean; 
+  contents : IBoardContent[] ;
+}

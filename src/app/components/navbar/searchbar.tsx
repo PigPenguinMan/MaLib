@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // 네브바에 사용할 검색창
 // 필터 ( 제목 , 작가이름 , 장르 ) , 입력창 , 돋보기아이콘

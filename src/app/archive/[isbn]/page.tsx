@@ -2,6 +2,7 @@
 import { ArchiveInfoContent } from "@/app/utils/content";
 import Loading from "@/app/utils/loading";
 import { IItem, ISearchItem } from "@/types/types";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 import React, { Suspense, useEffect, useState } from "react";
@@ -87,14 +88,18 @@ export default function BookDetailPage({
       <div className="detail_wrap flex flex-col flex-1 grow w-full px-28 ">
         <div className="detail_top flex pt-6 gap-2  ">
           <div className="img_container relative flex flex-col  ">
-            <div className="img_top roudned-t-xl w-96 h-full bg-slate-100">
+            <div className="img_top rounded-xl w-96 h-full bg-slate-100">
               <div className="relative w-full h-96">
                 <div className="img_bg_wrap absolute h-full w-full object-cover overflow-hidden rounded-xl ">
-                  <img
+                  {/* 11/10  img태그를 Next의 Image태그로 변경시작 */}
+                  <Image src={searchParams.imageDownloadUrl} alt="cover_image_bg" fill={true}
+                  className="img_bg absolute top-0 left-0 h-full w-full object-cover object-center blur-md "
+                  />
+                  {/* <img
                     src={searchParams.imageDownloadUrl}
                     alt="cover_image_bg"
                     className="img_bg absolute top-0 left-0 h-full w-full object-cover object-center blur-md "
-                  />
+                  /> */}
                   {/* 10/03 gradiant 적용안됌 수정필요----- 수정완료*/}
                   {/* gradient-to-t top에서 아래로 */}
                   <div className="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-[rgba(247,247,247)] from-10% via-[rgba(247,247,247,0.5),rgba(247,247,247,0.1)] via-70% to-[rgba(247,247,247,0)] to-80%"></div>

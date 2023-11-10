@@ -19,8 +19,10 @@ const config: Config = {
         'moreArrowIcon' : 'url(/morearrow.svg)',
         'lessArrowIcon' : 'url(/lessarrow.svg)',
         'heart' : 'url(/heart.svg)',
-        'userImage' : 'url(/userimage.svg',
-        'glassIcon': 'url(/glass.svg',
+        'userImage' : 'url(/userimage.svg)',
+        'glassIcon': 'url(/glass.svg)',
+        'likeIcon' : 'url(/like.svg0',
+        'writeIcon' : 'url(/write.svg)',
       },
       colors: {
         'DarkGreen/15': '#1A3129',

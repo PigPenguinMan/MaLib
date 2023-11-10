@@ -10,6 +10,14 @@ const nextConfig = {
     //         cert:fs.readFileSync(path.join(__dirname,'localhost.crt'))
     //     }
     // }
+    images : { 
+        remotePatterns: [
+            {
+                protocol : 'https',
+                hostname : 'www.kmas.or.kr'
+            }
+        ]
+    }
 }
 
 module.exports = nextConfig
