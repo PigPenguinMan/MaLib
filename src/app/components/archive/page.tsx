@@ -114,9 +114,9 @@ const Archive = () => {
     handleFilterChange();
   }, [selectedBookFilter]);
   return (
-    <div className="ArchiveWrap w-full px-28 flex flex-col grow ">
+    <div className="archivewrap w-full px-28 flex flex-col grow ">
       {/* 장르별 필터  */}
-      <div className="filterWrap sticky top-16 w-full h-full  z-[99] bg-white ">
+      <div className="filterwrap sticky top-16 w-full h-full  z-[99] bg-white ">
         <BookFilter
           filterState={{
             filterCheck,
@@ -129,7 +129,7 @@ const Archive = () => {
         />
       </div>
       {/* 10/10 필터를 눌러서 데이터가 바뀔때 바뀌는 애니매이션 ? 있어야 할거같음  */}
-      <div className="ContentListWrap grid grid-cols-6 gap-x-3 py-3 justify-items-center bg-slate-100 rounded-lg mx-2">
+      <div className="contentlistwrap grid grid-cols-6 gap-x-3 py-3 justify-items-center bg-slate-100 rounded-lg mx-2">
         {
           // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 --
           /*

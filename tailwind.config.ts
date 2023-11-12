@@ -23,6 +23,8 @@ const config: Config = {
         'glassIcon': 'url(/glass.svg)',
         'likeIcon' : 'url(/like.svg0',
         'writeIcon' : 'url(/write.svg)',
+        'updateIcon' : 'url(/update.svg)',
+        'deleteIcon' : 'url(/delete.svg)',
       },
       colors: {
         'DarkGreen/15': '#1A3129',

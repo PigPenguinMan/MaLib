@@ -4,6 +4,7 @@ import MainThird from "../components/main/third";
 
 const MainPage = () => {
     return ( 
+        // 
         <div className="main">
             <MainFirst/>
             <MainSecond/>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "./components/navbar/navbar";
 import Providers from "./components/sessionprovider";
+import Footer from "./components/footer/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-        <header className="header sticky top-0 z-[100] bg-white">
-          <NavBar />
-        </header>
+          <header className="header sticky top-0 z-[100]">
+            <NavBar />
+          </header>
           {children}
-          </Providers>
+        <footer>
+          <Footer/>
+        </footer>
+        </Providers>
       </body>
     </html>
   );
