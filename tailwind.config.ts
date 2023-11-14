@@ -25,6 +25,8 @@ const config: Config = {
         'writeIcon' : 'url(/write.svg)',
         'updateIcon' : 'url(/update.svg)',
         'deleteIcon' : 'url(/delete.svg)',
+        'prevbtnIcon' : 'url(/prevbtn.svg)',
+        'nextbtnIcon' : 'url(/nextbtn.svg)',
       },
       colors: {
         'DarkGreen/15': '#1A3129',

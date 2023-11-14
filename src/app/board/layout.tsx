@@ -5,8 +5,8 @@ export default function BoardLayout ({
 } : {
     children : React.ReactNode
 }){
-    return <section className="mx-28 my-2 h-screen">
+    return <div className="board_layout mx-28 my-2  h-full min-h-screen">
         <BoardNav/>
         {children}
-        </section>
+        </div>
 }

@@ -2,12 +2,10 @@ import clientPromise from "@/lib/database";
 import { ISigninRequsetBody } from "@/types/types";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
-
 export async function POST(requset: Request) {
   try {
     const body: ISigninRequsetBody = await requset.json();
-    console.log('signin API BODY');
-    
+    console.log('signin API BODY',body);
     const client = await clientPromise;
     const userCollection = client
       .db(process.env.MONGODB_DB_NAME)

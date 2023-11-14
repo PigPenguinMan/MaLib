@@ -5,7 +5,7 @@ import Link from "next/link";
 import NavbarSign from "./signcheck";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
   const navList = [
@@ -20,6 +20,7 @@ const NavBar = () => {
   useEffect(() => {
     if (status === "authenticated") {
       setIsLogin(true);
+      
     } else if (status === "unauthenticated") {
       setIsLogin(false);
     }
@@ -27,13 +28,13 @@ const NavBar = () => {
     console.log("로그인상태", status);
   }, [status]);
   useEffect(() => {
-    // 현재 위치의 nav에 아랫줄 표시
+    // 현재 위치의 nav에 아랫줄(__) 표시
   }, []);
 
   return (
     <div className="flex flex-row items-center justify-between h-16 p-6 bg-DarkGreen/25 text-Green/90">
       <h1 className="">
-        <a href="">로고</a>
+        <a href="/">로고</a>
       </h1>
       {/* 로고 아이콘 */}
       {/* 메뉴 1~3 */}

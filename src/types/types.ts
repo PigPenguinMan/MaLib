@@ -138,10 +138,10 @@ export interface IArchiveContentProps {
 export interface IIsLoginProp{
   isLogin : boolean;
   setIsLogin : React.Dispatch<React.SetStateAction<boolean>>;
-  user? : {
+  user : {
     id: string ; 
-    name : string ; 
-    role : string ;
+    Name : string ; 
+    Role : string ;
   }
 }
 

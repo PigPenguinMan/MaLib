@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 // ID , PW , 닉네임 , 이메일
@@ -11,7 +12,7 @@ const SignUpMain = () => {
     Name: "",
     IsAdult: "",
   });
-
+  const router = useRouter();
   //  10/12 비밀번호가 다를떄 회원가입을 하면 빨간색 보더가 생기고 알림창 ? 만들기
   const handleOnChagne: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.type === "checkbox") {
@@ -37,6 +38,9 @@ const SignUpMain = () => {
       },
     });
     const data = await response.json();
+    if(data.success){
+      router.push('/')
+    }
   };
   return (
     <div className="SignUp_wrap relative flex justify-center w-full h-full p-28">

@@ -93,10 +93,10 @@ export const authOptions2: NextAuthOptions = {
     }): Promise<any> => {
       const { token, user, trigger, session } = params;
       if (user) {
-        token.user = {};
-        token.user.id = user._id;
-        token.user.name = user.Name;
-        token.user.role = user.Role;
+        token.user = {...user};
+        token.user.Name = user.Name;
+        token.user.Role = user.Role;
+        token.user.id = user._id
       }
       if (trigger === "update" && session.name) {
         token.user.name = session.name;
@@ -111,7 +111,9 @@ export const authOptions2: NextAuthOptions = {
     session: async ({ session, token }: { session: any; token: any }) => {
       // console.log('session session',session)
       // console.log('session token',token)
-      session.user = token.user;
+      session.user.Name = token.user.Name;
+      session.user.Role = token.user.Role;
+      session.user.id = token.user.id
       return session;
     },
   },

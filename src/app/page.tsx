@@ -1,17 +1,17 @@
-import ArchiveMain from "./archive/page";
+
+import MainPage from "./main/page";
 
 const Main = () => {
   return (
-    <body>
+
       <div className="wrap relative flex flex-col m-auto ">
-        <div className="content">
+
           <section className="">
-            <ArchiveMain />
+            <MainPage/>
           </section>
-        </div>
-        <div className="footer"></div>
+
       </div>
-    </body>
+
   );
 };
 

@@ -3,16 +3,12 @@
 // 만화 목록 ( display - grid , 화면크기에 따라 Row,Col 변경)
 
 import Archive from "@/app/components/archive/page";
-
 import React, { Suspense } from "react";
 import Loading from "../components/loading";
-
 const ArchiveMain = () => {
-
   return (
     <div className="Archive_Main ">
       <Suspense fallback={<Loading/>}>
-
         <Archive />
       </Suspense>
     </div>

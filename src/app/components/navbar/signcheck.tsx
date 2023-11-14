@@ -13,7 +13,7 @@ const NavbarSign = ({isLogin,setIsLogin,user}:IIsLoginProp) => {
             <Link href={`/account/user/${user?.id}/`}>
             <div className="user_img"> <img src="/userimage.svg" alt="유저이미지" /></div>
             </Link>
-            <div className="user_name">{user?.name}</div>
+            <div className="user_name">{user?.Name}</div>
           </li>
           <li className="signout flex px-2 border rounded-md">
             <button className="text-center" onClick={()=>signOut()}>로그아웃</button>
