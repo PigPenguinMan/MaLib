@@ -8,9 +8,8 @@ import { useEffect, useState } from "react";
 const BoardContent = (props: IBoardContent) => {
   const { data: session } = useSession();
   
-  // 게시판에 들어왔을때 게시판의 글중 session의 유저이름과 같은 이름을 가진 사람이 쓴글에 삭제,수정버튼 표시
-
-  
+  // 게시판에 들어왔을때 게시판의 글중 session의 유저이름과 같은 이름을 가진 사람이 쓴글에 삭제,수정버튼 표시 
+// useeffect는 처음 게시글만 아이콘이 표시됨 다른방법 찾기
   useEffect(() => {
     if (session?.user && session.user.Name === props.userName) {
       const btnwrap = document.getElementById("board_btnwrap");
@@ -48,7 +47,7 @@ const BoardContent = (props: IBoardContent) => {
       <div className="board_footer flex border-t">
         <div className="board_heart">{props.heart}</div>
         <div className="board_reply">{props.reply}</div>
-        {/* 삭제버튼 , 수정버튼 만들기  */}
+        {/* 삭제버튼 , 수정버튼 만들기 완료  */}
       </div>
     </div>
   );
