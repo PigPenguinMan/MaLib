@@ -24,8 +24,8 @@ const NavBar = () => {
     } else if (status === "unauthenticated") {
       setIsLogin(false);
     }
-    console.log("세션 데이터", session);
-    console.log("로그인상태", status);
+    // console.log("세션 데이터", session);
+    // console.log("로그인상태", status);
   }, [status]);
   useEffect(() => {
     // 현재 위치의 nav에 아랫줄(__) 표시

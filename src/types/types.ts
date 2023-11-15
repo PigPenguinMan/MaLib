@@ -138,7 +138,7 @@ export interface IArchiveContentProps {
 export interface IIsLoginProp{
   isLogin : boolean;
   setIsLogin : React.Dispatch<React.SetStateAction<boolean>>;
-  user : {
+  user? : {
     id: string ; 
     Name : string ; 
     Role : string ;
@@ -170,17 +170,30 @@ export interface IDefaultUser {
   Is_Adult : boolean ;
 }
 
-export interface IBoardContent {
+export interface IBoardContentProps {
     _id : string;
     contentText :string ;
     heart : string; 
     reply : string; 
     userImg : string | null;
     userName : string; 
+
+}
+export interface IBoardUserProps {
+  user ?:{
+    id: string ; 
+    Name : string ; 
+    Role : string ;
+  }
+}
+
+export interface IBoardProps {
+  content : IBoardContentProps ;
+  user? : IBoardUserProps 
 }
 
 
 export interface IBoardGETResponse {
   success : boolean; 
-  contents : IBoardContent[] ;
+  contents : IBoardContentProps[] ;
 }
