@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const MainFirst = () => {
   return (
     <div className="main_first relative flex justify-center w-full h-[600px] bg-DarkGreen/25/90">
@@ -14,12 +16,16 @@ const MainFirst = () => {
       <div className="main_fr w-1/6 flex flex-col items-center justify-around mx-28 text-Green/97">
         <div className="main_fr_logo text-3xl">로 고 위 치</div>
         <div className="main_fr_btnwrap flex justify-around w-full pt-12">
-          <button className="main_fr_arbtn text-2lg p-2 rounded-md border border-Green/97 hover:bg-Green/97 hover:text-DarkGreen/25/90">
-            아카이브로 이동
-          </button>
-          <button className="main_fr_bobtn text-2lg p-2 rounded-md border border-Green/97 hover:bg-Green/97 hover:text-DarkGreen/25/90">
-            게시판으로 이동
-          </button>
+          <Link href="/archive">
+            <button className="main_fr_arbtn text-2lg p-2 rounded-md border border-Green/97 hover:bg-Green/97 hover:text-DarkGreen/25/90">
+              아카이브로 이동
+            </button>
+          </Link>
+          <Link href="/board">
+            <button className="main_fr_bobtn text-2lg p-2 rounded-md border border-Green/97 hover:bg-Green/97 hover:text-DarkGreen/25/90">
+              게시판으로 이동
+            </button>
+          </Link>
         </div>
       </div>
     </div>

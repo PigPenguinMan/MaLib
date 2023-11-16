@@ -25,7 +25,7 @@ const SearchBar = () => {
     >
       {/* 셀렉트 드롭다운 배경색 수정필요 */}
       <select
-        className="px-3 bg-inherit"
+        className="px-3 bg-white text-black rounded-l-sm"
         onChange={(e) => setFtValue(e.target.value)}
         name="searchBarFilter"
         id="searchBarFilter"
@@ -34,14 +34,14 @@ const SearchBar = () => {
         <option value="artist">작가</option>
       </select>
       <input
-        className="pl-2 bg-glass bg-no-repeat bg-right text-black"
+        className="px-2  rounded-r-sm bg-right text-black "
         type="text"
         placeholder="내용을 입력해주세요"
         onChange={(e) => setSearchValue(e.target.value)}
         value={searchValue}
       />
-      <button type="submit"> </button>
-      {/* 돋보기 아이콘  */}
+      <button type="submit" className="bg-glass bg-no-repeat"> </button>
+
     </form>
   );
 };

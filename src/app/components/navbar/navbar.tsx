@@ -7,54 +7,47 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
+
 const NavBar = () => {
   const navList = [
-    { name: "아카이브", link: "/archive" },
-    { name: "게시판", link: "/board" },
+    { id : "nav01", name: "메인", path: "/"},
+    { id : "nav02", name: "아카이브", path: "/archive" },
+    { id : "nav03", name: "게시판", path: "/board" },
   ];
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState<string>("");
   const { data: session, status } = useSession();
-  const params = usePathname();
+  const pathName = usePathname();
+  const handleNavClick =(e:React.MouseEvent)=>{
+    setCurrentPage(e.currentTarget.id);
 
+  }
   useEffect(() => {
     if (status === "authenticated") {
-      setIsLogin(true);
-      
+      setIsLogin(true); 
     } else if (status === "unauthenticated") {
       setIsLogin(false);
     }
-    // console.log("세션 데이터", session);
-    // console.log("로그인상태", status);
   }, [status]);
-  useEffect(() => {
-    // 현재 위치의 nav에 아랫줄(__) 표시
-  }, []);
-
+ 
   return (
     <div className="flex flex-row items-center justify-between h-16 p-6 bg-DarkGreen/25 text-Green/90">
       <h1 className="">
         <a href="/">로고</a>
       </h1>
-      {/* 로고 아이콘 */}
-      {/* 메뉴 1~3 */}
       <nav>
         <ul className="flex flex-row">
           {navList.map((nav) => (
-            <li key={nav.name}>
-              <Link href={nav.link} className="px-2">
+            // 11/16 navbar의 li중 style에서 현재페이지 위치인 pathName과 nav.path가 같은 li의 배경색을 바꿔 현재위치 표시
+            <li key={nav.name} onClick={handleNavClick} id={nav.name} className="nav_link px-2 rounded-md  hover:bg-white/30" style={{backgroundColor : nav.path === pathName ? 'rgb(255,255,255,0.3)': 'inherit' ,}}  >
+              <Link href={nav.path} className="">
                 {nav.name}
               </Link>
             </li>
           ))}
-          {/* <li>
-            <Link href="archive" className="px-2">성향 만화찾기</Link>
-          </li> */}
         </ul>
       </nav>
       <div className="flex flex-row basis-2/3 justify-end">
-        {/* 검색창 */}
-
         <div className="searchbar px-22 mx-6 ">
           <SearchBar />
         </div>

@@ -8,7 +8,6 @@ const BookFilter: React.FC<IBookFilterProps> = (props) => {
   const {
     filterCheck,
     setFilterCheck,
-    bookFilter,
     setBookFilter,
     selectedBookFilter,
     setSelectedBookFilter,

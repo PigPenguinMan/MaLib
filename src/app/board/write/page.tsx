@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 /** 11/12 write페이지에 진입시 useSession으로 불러온 session에 유저 데이터가 없으면 로그인페이지로 이동필요 */
 const BoardWrite = () => {
@@ -10,7 +10,6 @@ const BoardWrite = () => {
   });
   const { data: session } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams();
   /** 11/12 회원가입에서는 하나의 함수로 각 태그의 id값에 따라 value를 넣어줬지만
    * 실수로 input id값에 오타가 생길경우에는 태그별로 함수를 만들어 오타가 생겼어도 state에 값이 들어가도록 만들어보았다*/
   const handleContentTextChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -48,7 +47,6 @@ const BoardWrite = () => {
     }
   }, [session]);
 
- 
   return (
     <div className="board_write_wrap grid grid-cols-3  p-2">
       <div className="bg-Green/97 col-start-2 col-span-1 min-h-[400px] rounded-md border">

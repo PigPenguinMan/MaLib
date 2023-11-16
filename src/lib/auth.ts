@@ -1,12 +1,10 @@
 // ref  https://codevoweb.com/nextjs-use-custom-login-and-signup-pages-for-nextauth-js/
 
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import { NextAuthOptions, Session, User } from "next-auth";
+import { NextAuthOptions, } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "./database";
-import { randomBytes, randomUUID } from "crypto";
 
-import { AdapterUser } from "next-auth/adapters";
 
 export const authOptions2: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise, {
