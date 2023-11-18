@@ -57,12 +57,12 @@ export async function GET(requset: Request) {
     console.error(err, "패치에러");
   }
 }
-export async function POST(res: Response, req: Request) {
+export async function POST() {
   return NextResponse.json({ message: "POST METHOD", success: true });
 }
-export async function PUT(res: Response, req: Request) {
+export async function PUT() {
   return NextResponse.json({ message: "DELETE METHOD", success: true });
 }
-export async function DELETE(res: Response, req: Request) {
+export async function DELETE() {
   return NextResponse.json({ message: "PUT METHOD", success: true });
 }
