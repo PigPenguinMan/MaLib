@@ -14,7 +14,7 @@ function dispArtist(pictrWritrNm: string | null, sntncWritrNm: string | null) {
   }
 }
 
-// content Image size 지정해주기 
+// content Image size 지정해주기
 export function ArchiveContent(itemList: IItem) {
   const params = new URLSearchParams();
   // url로 데이터 전달하기 위한 queryString
@@ -35,7 +35,12 @@ export function ArchiveContent(itemList: IItem) {
         }}
       >
         <div className="relative  w-full h-full rounded-md   ">
-        <Image src={`${itemList.imageDownloadUrl}`} alt={`${itemList.title}`} fill={true} className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"/>
+          <Image
+            src={itemList.imageDownloadUrl}
+            alt={itemList.title}
+            fill
+            className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"
+          />
           {/* <img
             className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"
             src={`${itemList.imageDownloadUrl}`}
@@ -75,7 +80,21 @@ export function ResultContent(itemList: ISearchItem) {
         }}
       >
         <div className="relative w-full h-full rounded-md">
-          <Image src={`${itemList.imageDownloadUrl}`} alt={`${itemList.prdctNm}`} className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"/>
+          {itemList.imageDownloadUrl !== null ?
+           <Image
+            src={itemList.imageDownloadUrl}
+            alt={itemList.prdctNm}
+            fill
+            className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"
+          /> :
+            null
+          }
+          {/* <Image
+            src={itemList.imageDownloadUrl}
+            alt={itemList.prdctNm}
+            fill
+            className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"
+          /> */}
           {/* <img
             className="absolute w-full h-full top-0 left-0 object-cover select-none rounded-md"
             src={`${itemList.imageDownloadUrl}`}
@@ -104,7 +123,6 @@ export function ArchiveInfoContent(itemList: ISearchItem) {
     }
   }
   const queryString = params.toString();
-  console.log(itemList.imageDownloadUrl)
   return (
     <div className="archiveContent flex flex-col w-full min-h-[200px] overflow-hidden">
       <Link
@@ -114,7 +132,12 @@ export function ArchiveInfoContent(itemList: ISearchItem) {
         }}
       >
         <div className="relative w-full h-56 ">
-          <Image src={`${itemList.imageDownloadUrl}`} alt={`${itemList.prdctNm}`} fill={true} className="w-full h-full object-cover rounded-md"/>
+          <Image
+            src={itemList.imageDownloadUrl}
+            alt={itemList.prdctNm}
+            fill
+            className="w-full h-full object-cover rounded-md"
+          />
           {/* <img
             src={`${itemList.imageDownloadUrl}`}
             alt={`${itemList.prdctNm}`}

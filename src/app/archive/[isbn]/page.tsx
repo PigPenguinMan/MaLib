@@ -93,7 +93,7 @@ export default function BookDetailPage({
                 <Image
                   src={searchParams.imageDownloadUrl}
                   alt="cover_image_bg"
-                  fill={true}
+                  fill
                   className="img_bg absolute top-0 left-0 h-full w-full object-cover object-center blur-md "
                 />
                 {/* <img
@@ -107,9 +107,10 @@ export default function BookDetailPage({
               </div>
               <div className="img_wrap relative h-full py-6 min-h-[inherit]">
                 <div className="relative mx-20 h-full overflow-hidden rounded-lg ">
-                  <img
+                  <Image
                     src={searchParams.imageDownloadUrl}
                     alt="thumbnail"
+                    fill
                     className="img absolute top-0 left-0 h-full w-full "
                   />
                 </div>
@@ -126,9 +127,11 @@ export default function BookDetailPage({
                   </span>
                   <div className="relative flex mb-2 text-sm items-center justify-center gap-2 opacity-70">
                     <div className="h-4">
-                      <img
+                      <Image
                         src="/book.svg"
                         alt="book SVG"
+                        width={3}
+                        height={3}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -140,10 +143,12 @@ export default function BookDetailPage({
                     {searchParams.fnshYn === "Y" ? "연재" : "완결"}
                   </span>
                   {/* 하트 클릭시 색상 또는 크기 변화 만들기 */}
-                  <div className="w-7 h-7" onClick={handleClickHeart}>
-                    <img
+                  <div className="w-6 h-6" onClick={handleClickHeart}>
+                    <Image
                       src="/heart.svg"
                       alt="heart svg"
+                      width={5}
+                      height={5}
                       className="w-full h-full object-cover "
                     />
                   </div>
@@ -217,15 +222,19 @@ export default function BookDetailPage({
               >
                 <div className="arrow_image flex justify-center items-center pt-2">
                   {outlineMore ? (
-                    <img
+                    <Image
                       src="/lessarrow.svg"
                       alt="줄이기아이콘"
-                      className="h-3 w-full"
+                      width={5}
+                      height={5}
+                      className="w-full"
                     />
                   ) : (
-                    <img
+                    <Image
                       src="/morearrow.svg"
                       alt="더보기아이콘"
+                      width={5}
+                      height={5}
                       className="h-3 w-full"
                     />
                   )}

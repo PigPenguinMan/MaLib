@@ -8,9 +8,11 @@ import React from "react";
 import Loading from "@/app/utils/loading";
 // import { ArchiveContent } from "@/app/utils/content";
 
-const ArchiveContent = React.lazy(()=>import('@/app/utils/content').then(module => ({
-  default : module.ArchiveContent,
-})));
+const ArchiveContent = React.lazy(() =>
+  import("@/app/utils/content").then((module) => ({
+    default: module.ArchiveContent,
+  }))
+);
 const Archive = () => {
   const [contentData, setContentData] = useState<IItem[]>([]);
   const [moreData, setMoreData] = useState<IItem[]>([]);
@@ -129,31 +131,31 @@ const Archive = () => {
         />
       </div>
       {/* 10/10 필터를 눌러서 데이터가 바뀔때 바뀌는 애니매이션 ? 있어야 할거같음  */}
-      <div className="contentlistwrap grid grid-cols-6 gap-x-3 py-3 justify-items-center bg-slate-100 rounded-lg mx-2">
-        {
-          // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 --
-          /*
-           *10/03 필터를 눌렀을때 누른 필터와 같은장르만 남기기위해 필터state를 prop으로 내려줄때
-           *itemList이 IItem 형식에 없지만 'IArchiveContentProps' 형식에서 필수입니다.ts(2741) 오류
-           */
-          /*
-           *10/05 Encountered two children with the same key, `2023109495`.
-           *Keys should be unique so that components maintain their identity across updates.
-           *Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version
-           *오류 발생 고유한 키값이 아닌여서 발생한 문제인거같은데 mastrId는 자료고유Id값인데 왜 생기는건지 모르겠다
-           */
-          // 객체의 모드속성을 전개연산자{...}를 사용해 prop 보내기
-        }
-        <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Loading />}>
+        <div className="contentlistwrap grid grid-cols-6 gap-x-3 py-3 justify-items-center bg-slate-100 rounded-lg mx-2">
+          {
+            // 09/17 prop 출판사만 다르고 같은이름의 데이터들이 있는 문제 --
+            /*
+             *10/03 필터를 눌렀을때 누른 필터와 같은장르만 남기기위해 필터state를 prop으로 내려줄때
+             *itemList이 IItem 형식에 없지만 'IArchiveContentProps' 형식에서 필수입니다.ts(2741) 오류
+             */
+            /*
+             *10/05 Encountered two children with the same key, `2023109495`.
+             *Keys should be unique so that components maintain their identity across updates.
+             *Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version
+             *오류 발생 고유한 키값이 아닌여서 발생한 문제인거같은데 mastrId는 자료고유Id값인데 왜 생기는건지 모르겠다
+             */
+            // 객체의 모드속성을 전개연산자{...}를 사용해 prop 보내기
+          }
           {filterCheck && filterData
             ? filterData.map((itemList: IItem) => (
-                <ArchiveContent  key={itemList.mastrId} {...itemList} />
+                <ArchiveContent key={itemList.mastrId} {...itemList} />
               ))
             : contentData.map((itemList: IItem) => (
                 <ArchiveContent key={itemList.mastrId} {...itemList} />
               ))}
-        </Suspense>
-      </div>
+        </div>
+      </Suspense>
     </div>
   );
 };

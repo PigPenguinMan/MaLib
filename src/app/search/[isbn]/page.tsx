@@ -2,6 +2,7 @@
 import { ArchiveInfoContent } from "@/app/utils/content";
 import Loading from "@/app/utils/loading";
 import { ISearchItem } from "@/types/types";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
@@ -70,25 +71,26 @@ const ReusltContentPage = ({
   }, []);
 
   return (
-    <Suspense fallback={<Loading />}>
       <div className="detail_wrap flex flex-col flex-1 grow w-full px-28 ">
         <div className="detail_top flex pt-6 gap-2  ">
           <div className="img_container relative flex flex-col  ">
             <div className="img_top roudned-t-xl w-96 h-full bg-slate-100">
               <div className="relative w-full h-96">
                 <div className="img_bg_wrap absolute h-full w-full object-cover overflow-hidden rounded-xl ">
-                  <img
+                  <Image
                     src={searchParams.imageDownloadUrl}
                     alt="cover_image_bg"
+                    fill
                     className="img_bg absolute top-0 left-0 h-full w-full object-cover object-center blur-md "
                   />
                   <div className="absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-t from-[rgba(247,247,247)] from-10% via-[rgba(247,247,247,0.5),rgba(247,247,247,0.1)] via-70% to-[rgba(247,247,247,0)] to-80%"></div>
                 </div>
                 <div className="img_wrap relative h-full py-6 min-h-[inherit]">
                   <div className="relative mx-20 h-full overflow-hidden rounded-lg ">
-                    <img
+                    <Image
                       src={searchParams.imageDownloadUrl}
                       alt="thumbnail"
+                      fill
                       className="img absolute top-0 left-0 h-full w-full "
                     />
                   </div>
@@ -103,22 +105,26 @@ const ReusltContentPage = ({
                     </span>
                     <div className="relative flex mb-2 text-sm items-center justify-center gap-2 opacity-70">
                       <div className="h-4">
-                        <img
-                          src="/book.svg"
-                          alt="book SVG"
-                          className="w-full h-full object-cover"
-                        />
+                      <Image
+                        src="/book.svg"
+                        alt="book SVG"
+                        width={3}
+                        height={3}
+                        className="w-full h-full object-cover"
+                      />
                       </div>
                       <div>{searchParams.ageGradCdNm}</div>
                     </div>
                     <span className="mb-6 text-sm opacity-70">
                     </span>
                     <div className="w-7 h-7" onClick={handleClickHeart}>
-                      <img
-                        src="/heart.svg"
-                        alt="heart svg"
-                        className="w-full h-full object-cover "
-                      />
+                    <Image
+                      src="/heart.svg"
+                      alt="heart svg"
+                      width={5}
+                      height={5}
+                      className="w-full h-full object-cover "
+                    />
                     </div>
                   </div>
                 </div>
@@ -170,17 +176,21 @@ const ReusltContentPage = ({
                 >
                   <div className="arrow_image flex justify-center items-center pt-2">
                     {outlineMore ? (
-                      <img
-                        src="/lessarrow.svg"
-                        alt="줄이기아이콘"
-                        className="h-3 w-full"
-                      />
-                    ) : (
-                      <img
-                        src="/morearrow.svg"
-                        alt="더보기아이콘"
-                        className="h-3 w-full"
-                      />
+                       <Image
+                       src="/lessarrow.svg"
+                       alt="줄이기아이콘"
+                       width={5}
+                       height={5}
+                       className="w-full"
+                     />
+                   ) : (
+                     <Image
+                       src="/morearrow.svg"
+                       alt="더보기아이콘"
+                       width={5}
+                       height={5}
+                       className="h-3 w-full"
+                     />
                     )}
                   </div>
                 </div>
@@ -189,18 +199,17 @@ const ReusltContentPage = ({
             <div className="desc_bottom relative flex flex-col w-full h-min-[inherit] p-6 bg-slate-100 rounded-xl">
               <div className="text-2xl mb-5">작가의 다른작품</div>
               <div className="desc_artist grid grid-cols-5 px-5 gap-2 justify-items-center rounded-md">
-                <Suspense fallback={<Loading />}>
+
                   {infoData.map((itemList) => (
                     <ArchiveInfoContent key={itemList.isbn} {...itemList} />
                   ))}
-                </Suspense>
+
               </div>
             </div>
           </div>
         </div>
         <div className="detail_infoWrap relative flex w-full h-80 mt-6 bg-slate-100 rounded-xl"></div>
       </div>
-    </Suspense>
   );
 };
 

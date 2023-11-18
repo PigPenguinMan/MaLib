@@ -71,8 +71,8 @@ const SearchResultPage = () => {
           }}
         />
       </div>
-      <div className="ContentListWrap grid grid-cols-6 gap-x-3 py-2  justify-items-center bg-slate-100 mx-2">
         <Suspense fallback={<Loading />}>
+      <div className="ContentListWrap grid grid-cols-6 gap-x-3 py-2  justify-items-center bg-slate-100 mx-2">
           {filterCheck && filterData
             ? filterData.map((itemList: ISearchItem) => (
                 <ResultContent key={itemList.isbn} {...itemList} />
@@ -80,8 +80,8 @@ const SearchResultPage = () => {
             : resultData.map((itemList: ISearchItem) => (
                 <ResultContent key={itemList.isbn} {...itemList} />
               ))}
-        </Suspense>
       </div>
+        </Suspense>
     </div>
   );
 };
