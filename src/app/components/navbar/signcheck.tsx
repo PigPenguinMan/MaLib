@@ -1,5 +1,6 @@
 import { IIsLoginProp } from "@/types/types";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 
 const NavbarSign = ({isLogin,setIsLogin,user}:IIsLoginProp) => {
@@ -11,7 +12,7 @@ const NavbarSign = ({isLogin,setIsLogin,user}:IIsLoginProp) => {
         <ul className="flex flex-row mx-6 gap-2 ">
           <li className="userprofile flex flex-row items-center rounded-md px-2 gap-2">
             <Link href={`/account/user/${user?.id}/`}>
-            <div className="user_img"> <img src="/userimage.svg" alt="유저이미지" /></div>
+            <div className="user_img"> <Image src="/userimage.svg" alt="유저이미지" width={30} height={30} /></div>
             </Link>
             <div className="user_name">{user?.Name}</div>
           </li>
