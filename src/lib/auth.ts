@@ -51,6 +51,8 @@ export const authOptions2: NextAuthOptions = {
         const user = await response.json();
         const request = req.body;
         // req.body === user
+        console.log(user);
+        
 
         // console.log('requ',request);
 
@@ -66,7 +68,6 @@ export const authOptions2: NextAuthOptions = {
   callbacks: {
     async signIn({ user, credentials }) {
       // console.log("Callback user ", user);
-      // console.log("credential", credentials);
       const isAllowSignIn = true;
       if (isAllowSignIn && user) {
         return true;

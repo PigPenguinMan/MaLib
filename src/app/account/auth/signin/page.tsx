@@ -50,7 +50,7 @@ const SignInMain = () => {
             minLength={8}
             required
           />
-          <button  className="text-lg w-3/4 bg-slate-400 mt-3 py-4 rounded-lg"> 로그인 </button>
+          <button  className="text-lg w-3/4 bg-slate-400 mt-3 py-4 rounded-lg hover:bg-slate-400/90"> 로그인 </button>
         </form>
         <div className="LinkWrap flex justify-evenly my-7 text-sm opacity-60 ">
           <div>

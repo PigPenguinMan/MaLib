@@ -16,16 +16,16 @@ const NavbarSign = ({isLogin,setIsLogin,user}:IIsLoginProp) => {
             </Link>
             <div className="user_name">{user?.Name}</div>
           </li>
-          <li className="signout flex px-2 border rounded-md">
+          <li className="signout flex px-2 border rounded-md hover:bg-Green/97 hover:text-DarkGreen/25/90">
             <button className="text-center" onClick={()=>signOut()}>로그아웃</button>
           </li>
         </ul> 
       ) : (
         <ul className="flex flex-row mx-6 gap-2 ">
-          <li className="signin px-2 border rounded-md">
+          <li className="signin px-2 border rounded-md hover:bg-Green/97 hover:text-DarkGreen/25/90">
             <Link href="/account/auth/signin">로그인</Link>
           </li>
-          <li className="signup px-2  border rounded-md">
+          <li className="signup px-2  border rounded-md hover:bg-Green/97 hover:text-DarkGreen/25/90">
             <Link href="/account/auth/signup">회원가입</Link>
           </li>
         </ul>

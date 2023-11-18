@@ -28,7 +28,6 @@ const Archive = () => {
   let pageNo = 1;
   let pageNo2 = 1500;
   // 데이터 패치에 필요한 함수들
-
   const fetchData = async () => {
     try {
       setLoading(true);
