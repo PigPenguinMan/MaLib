@@ -100,9 +100,16 @@ const BoardContent = (content: IBoardContentProps) => {
         <div className="board_content_text text-lg">{content.contentText}</div>
         {/* <div className="board_content_img"></div> */}
       </div>
-      <div className="board_footer flex border-t">
-        <div className="board_heart">{content.heart}</div>
-        <div className="board_reply">{content.reply}</div>
+      <div className="board_footer flex border-t justify-between items-center pt-2">
+        {/* 좋아요 , 댓글 함수 필요  */}
+        <div className="board_heart flex gap-1">
+          <Image src='/heart.svg' alt="좋아요 아이콘" width={22} height={22} />
+          {content.heart}
+          </div>
+        <div className="board_reply flex gap-1">
+          <Image src='/reply.svg' alt="댓글 아이콘" width={22} height={22}/>
+          {content.reply}
+          </div>
         {/* 삭제버튼 , 수정버튼 만들기 완료  */}
       </div>
     </div>

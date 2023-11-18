@@ -27,6 +27,8 @@ const config: Config = {
         'deleteIcon' : 'url(/delete.svg)',
         'prevbtnIcon' : 'url(/prevbtn.svg)',
         'nextbtnIcon' : 'url(/nextbtn.svg)',
+        'replyIcon' : 'url(/reply.svg)',
+        'menuIcon' : 'url(/menu.svg)',
       },
       colors: {
         'DarkGreen/15': '#1A3129',
