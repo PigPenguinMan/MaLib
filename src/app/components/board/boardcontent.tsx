@@ -39,7 +39,7 @@ const BoardContent = (content: IBoardContentProps) => {
         <div className="flex gap-2">
           <div className="board_user_img">
             <Image
-              src="/userImage.svg"
+              src="/userimage.svg"
               alt="유저이미지"
               width={30}
               height={30}
