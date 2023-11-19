@@ -28,8 +28,8 @@ const SignInMain = () => {
   };
   
   return (
-    <div  className="Signin_wrap relative flex justify-center w-full h-full p-28">
-      <div className="Signin h-full w-1/2 bg-slate-100 rounded-lg">
+    <div  className="Signin_wrap relative flex justify-center  items-center w-full h-screen  p-28">
+      <div className="Signin w-1/2 bg-slate-100 rounded-lg">
         <form onSubmit={handleSubmit} className="Signin_form flex flex-col items-center p-10 gap-y-5  ">   
           <input
             type="text"

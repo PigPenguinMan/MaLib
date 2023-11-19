@@ -24,7 +24,10 @@ export default function RootLayout({
           <header className="header sticky top-0 z-[100]">
             <NavBar />
           </header>
+          <section className="section relative top-full">
+
           {children}
+          </section>
         <footer>
           <Footer/>
         </footer>

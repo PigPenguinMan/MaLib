@@ -5,9 +5,7 @@ const Main = () => {
   return (
 
       <div className="wrap relative flex flex-col m-auto ">
-          <section className="">
             <MainPage/>
-          </section>
       </div>
 
   );
